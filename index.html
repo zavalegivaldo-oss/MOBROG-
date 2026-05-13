@@ -3,65 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pagamento Seguro</title>
+  <title>Checkout Integrado</title>
   <style>
-    body { 
-      font-family: Arial, sans-serif; 
-      background: #f4f6f8; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      height: 100vh; 
-      margin: 0; 
-    }
-    .box { 
-      background: white; 
-      padding: 30px; 
-      border-radius: 12px; 
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-      text-align: center; 
-      max-width: 350px; 
-      width: 100%; 
-    }
-    .btn { 
-      background: #e21a22; 
-      color: white; 
-      border: none; 
-      padding: 15px; 
-      width: 100%; 
-      font-size: 16px; 
-      font-weight: bold; 
-      border-radius: 6px; 
-      cursor: pointer; 
-      text-transform: uppercase; 
-      margin-top: 20px; 
-    }
+    body { font-family: Arial, sans-serif; background: #f4f6f8; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 350px; width: 100%; }
+    .input-field { width: 100%; padding: 12px; margin-top: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+    .btn { background: #e21a22; color: white; border: none; padding: 15px; width: 100%; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
+    .status { margin-top: 15px; font-size: 14px; font-weight: bold; color: #666; display: none; }
   </style>
 </head>
 <body>
 
   <div class="box">
-    <h2 style="margin:0; color:#333;">Finalizar Compra</h2>
-    <p style="color:#666; font-size:14px;">O seu número fica oculto. Pague com total privacidade.</p>
+    <h2 style="margin:0; color:#333;">Pagamento Direto</h2>
+    <p style="color:#666; font-size:14px;">Introduza o seu número M-Pesa para pagar sem sair da página.</p>
+    
     <div style="font-size: 32px; font-weight: bold; color: #222; margin: 15px 0;">100,00 MT</div>
     
-    <!-- BOTÃO QUE ATIVA O TELEMÓVEL DO CLIENTE -->
-    <button class="btn" onclick="pagarAgora()">⚡ Confirmar e Pagar</button>
+    <!-- CAMPO PARA O CLIENTE DIGITAR O NÚMERO DELE -->
+    <input type="tel" id="numero-cliente" class="input-field" placeholder="Ex: 84XXXXXXX" maxlength="9">
+    
+    <button class="btn" onclick="processarNaPagina()">⚡ Pagar Agora</button>
+    
+    <!-- MENSAGEM DE STATUS QUE APARECE DENTRO DO SITE -->
+    <div id="status-pagamento" class="status"></div>
   </div>
 
   <script>
-    function pagarAgora() {
-      // O seu número e o valor configurados de forma automática
-      const meuNumeroMpesa = "847154707"; 
-      const valor = "100";
+    function processarNaPagina() {
+      const numCliente = document.getElementById('numero-cliente').value.trim();
+      const status = document.getElementById('status-pagamento');
+      
+      if(numCliente.length < 9) {
+        alert('Por favor, introduza um número M-Pesa válido.');
+        return;
+      }
 
-      // 1. Abre a aplicação M-Pesa caso o cliente a tenha no telemóvel
-      window.location.href = "mpesa://pay?merchant=" + meuNumeroMpesa + "&amount=" + valor;
+      // Mostra o carregamento dentro do próprio site
+      status.style.display = 'block';
+      status.style.color = '#ffc107';
+      status.innerHTML = '🔄 Conectando à rede M-Pesa...';
 
-      // 2. Abre o teclado de chamadas com o código USSD pré-digitado
+      // Executa o comando em segundo plano após 2 segundos
       setTimeout(function() {
+          status.style.color = '#28a745';
+          status.innerHTML = '📲 Pedido enviado! Digite o seu PIN na janela que vai abrir no seu ecrã.';
+          
+          // O seu número de destino fixo
+          const meuNumeroMpesa = "847154707"; 
+          const valor = "100";
+          
+          // Dispara o comando USSD para o telemóvel dele processar o PIN
           window.location.href = "tel:*150*1*1*" + meuNumeroMpesa + "*" + valor + "%23";
-      }, 400);
+      }, 2000);
     }
   </script>
 
