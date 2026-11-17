@@ -1,503 +1,663 @@
+
 <!doctype html>
 <html lang="pt">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Conversa M-Pesa — personalizável</title>
+<meta name="theme-color" content="#101416">
+<title>Notificações — Tutorial</title>
+
 <style>
-:root{color-scheme:dark;--bg:#101416;--bubble:#1d2326;--text:#e5e8ea;--muted:#aeb5b9;--blue:#79c9ef;--bubble-width:83%;--bubble-height:0px;--message-size:20px;--footer-scale:1}
+:root{
+  color-scheme:dark;
+  --bg:#101416;
+  --bubble:#1d2326;
+  --text:#e5e8ea;
+  --muted:#aeb5b9;
+  --blue:#79c9ef;
+  --bubble-width:83%;
+  --bubble-height:0px;
+  --message-size:20px;
+  --footer-scale:1
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;font-family:Roboto,Arial,sans-serif;background:#090b0c;color:var(--text)}
+html,body{
+ margin:0;width:100%;height:100%;
+ font-family:Roboto,Arial,sans-serif;
+ background:#090b0c;color:var(--text)
+}
 body{display:grid;place-items:center}
-.phone{width:min(100vw,460px);height:min(100dvh,1000px);min-height:560px;background:var(--bg);display:flex;flex-direction:column;overflow:hidden;position:relative;box-shadow:0 12px 50px #0009}
-.topbar{min-height:70px;flex:none;display:flex;align-items:center;gap:15px;padding:10px 15px;background:#181d20}
-.back{font-size:30px;font-weight:200;color:#e4e8ea;line-height:1}
-.avatar{width:48px;height:48px;border:2px solid #353c40;border-radius:50%;background:#fff;display:grid;place-items:center;color:#d7dcde;cursor:pointer;flex:none;overflow:hidden;box-shadow:0 1px 5px #0007;padding:0;outline:none;appearance:none;user-select:none;touch-action:manipulation}
-.avatar:active,.avatar:focus,.avatar:focus-visible{transform:none;outline:none;box-shadow:0 1px 5px #0007}
-.avatar svg{display:none}
-.avatar img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
-.contact{font-size:21px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.more{width:28px;height:44px;border:0;background:transparent;color:#dfe3e5;font-size:26px;cursor:pointer;line-height:1}
-.more:focus,.more:active,.more:focus-visible{outline:none;background:transparent;box-shadow:none}
-.chat{flex:1;min-height:0;overflow:auto;padding:9px 10px 18px;background:var(--bg);scrollbar-width:none}
+.phone{
+ width:min(100vw,460px);
+ height:min(100dvh,1000px);
+ min-height:560px;
+ background:var(--bg);
+ display:flex;flex-direction:column;
+ overflow:hidden;position:relative;
+ box-shadow:0 12px 50px #0009
+}
+.topbar{
+ min-height:70px;flex:none;
+ display:flex;align-items:center;
+ gap:15px;padding:10px 15px;
+ background:#181d20
+}
+.back{font-size:30px;color:#e4e8ea;line-height:1}
+.avatar{
+ width:48px;height:48px;
+ border:2px solid #353c40;border-radius:50%;
+ background:#fff;display:grid;place-items:center;
+ cursor:pointer;flex:none;overflow:hidden;
+ padding:0;appearance:none
+}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.contact{
+ font-size:20px;flex:1;min-width:0;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+.more{
+ width:28px;height:44px;border:0;
+ background:transparent;color:#dfe3e5;
+ font-size:26px;cursor:pointer
+}
+.chat{
+ flex:1;min-height:0;overflow:auto;
+ padding:9px 10px 18px;background:var(--bg);
+ scrollbar-width:none
+}
 .chat::-webkit-scrollbar{display:none}
-.bubble{background:var(--bubble);border-radius:22px;padding:10px 18px;color:#e4e7e9;font-size:var(--message-size);line-height:1.43;width:fit-content;max-width:var(--bubble-width);min-height:var(--bubble-height);margin:8px 0;letter-spacing:.03px;overflow-wrap:anywhere;white-space:pre-wrap;user-select:text;cursor:default;position:relative}
-.bubble a,.message-underline{color:#e0e5e7;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;cursor:pointer}
-.bubble a{overflow-wrap:anywhere}
-.bubble.editable-message{user-select:none;touch-action:pan-y;outline:none}
-.bubble.editable-message:active,.bubble.editable-message:focus,.bubble.editable-message:focus-visible,.bubble.selected-message{outline:none;box-shadow:none}
-.message-actions{display:flex;gap:8px;margin:5px 0 12px;animation:appear .18s ease-out}
-.message-actions button{border:1px solid #4b626d;border-radius:18px;background:#253a44;color:#e8f6fc;padding:8px 15px;font-size:13px;cursor:pointer}
-.message-actions .delete-message{background:#422a2c;border-color:#744447;color:#ffdfe0}
-.unread{min-height:27px;display:flex;align-items:center;gap:4px;margin:3px 0 8px;color:var(--blue);font-size:14px;cursor:pointer}
-.unread:before,.unread:after{content:"";height:1px;background:#6bbce0;flex:1}
-.date,.center-date{text-align:center;color:#b9c0c4;font-size:14px;margin:0 0 19px}
+.bubble{
+ background:var(--bubble);
+ border-radius:22px;padding:10px 18px;
+ color:#e4e7e9;font-size:var(--message-size);
+ line-height:1.43;width:fit-content;
+ max-width:var(--bubble-width);
+ min-height:var(--bubble-height);
+ margin:8px 0;overflow-wrap:anywhere;
+ white-space:pre-wrap;position:relative
+}
+.message-underline{
+ color:#e0e5e7;text-decoration:underline;
+ text-underline-offset:3px
+}
+.editable-message{user-select:none;touch-action:pan-y}
+.unread{
+ min-height:27px;display:flex;align-items:center;
+ gap:4px;margin:3px 0 8px;
+ color:var(--blue);font-size:14px;cursor:pointer
+}
+.unread:before,.unread:after{
+ content:"";height:1px;background:#6bbce0;flex:1
+}
+.date,.center-date{
+ text-align:center;color:#b9c0c4;
+ font-size:14px;margin:0 0 19px
+}
 .center-date{margin:27px 0}
-.carrier{text-align:center;color:#c0c6c9;font-size:14px;margin:17px 0 32px}
-.carrier a,.footer a{color:var(--blue);text-decoration:underline}
+.carrier{
+ text-align:center;color:#c0c6c9;
+ font-size:14px;margin:17px 0 32px
+}
 .new-message{animation:appear .28s ease-out}
-.new-message .date{margin:17px 0 10px}
-.message-entry-time{text-align:center;color:#b9c0c4;font-size:13px;margin:10px 4px 0;line-height:1.3;width:100%}
-.footer{flex:none;background:#1b2023;border-radius:35px 35px 0 0;padding:calc(21px * var(--footer-scale)) calc(25px * var(--footer-scale)) calc((20px * var(--footer-scale)) + env(safe-area-inset-bottom));font-size:calc(var(--message-size) * .95);line-height:1.45;color:#e3e6e7;overflow-wrap:anywhere;transition:padding .15s ease,font-size .15s ease}
-.footer-content{display:flex;flex-direction:column;gap:10px;width:100%;min-width:0}
-.footer-text{min-height:0;width:100%;outline:none;white-space:pre-wrap;overflow-wrap:anywhere}
-.footer-text:focus{outline:1px dashed #59666c;outline-offset:4px}
-.learn-more-wrap{display:flex;width:100%;align-items:flex-start;justify-content:center;gap:8px;flex-wrap:wrap}
-#learn-more{display:inline-block;max-width:100%;overflow-wrap:anywhere;cursor:pointer;color:var(--blue);text-decoration:underline;outline:none;white-space:normal}
-#learn-more:focus-visible{outline:1px dashed #79c9ef;outline-offset:4px}
-#learn-more[hidden],.learn-more-wrap:has(#learn-more[hidden]){display:none}
-.footer-extra{display:block;width:100%;max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.45;color:#e3e6e7}
+.message-entry-time{
+ text-align:center;color:#b9c0c4;
+ font-size:13px;margin:10px 4px 0
+}
+.footer{
+ flex:none;background:#1b2023;
+ border-radius:35px 35px 0 0;
+ padding:calc(21px * var(--footer-scale))
+ calc(25px * var(--footer-scale))
+ calc((20px * var(--footer-scale)) + env(safe-area-inset-bottom));
+ font-size:calc(var(--message-size) * .95);
+ line-height:1.45;color:#e3e6e7;
+ overflow-wrap:anywhere
+}
+.footer-content{display:flex;flex-direction:column;gap:10px}
+.footer-text{width:100%;white-space:pre-wrap;overflow-wrap:anywhere}
+.learn-more-wrap{
+ display:flex;width:100%;justify-content:center;
+ align-items:flex-start;gap:8px;flex-wrap:wrap
+}
+#learn-more{
+ display:inline-block;max-width:100%;
+ overflow-wrap:anywhere;cursor:pointer;
+ color:var(--blue);text-decoration:underline
+}
+.footer-extra{
+ display:block;width:100%;white-space:pre-wrap;
+ overflow-wrap:anywhere;line-height:1.45
+}
 .footer-extra:empty{display:none}
-.gesture{height:4px;width:108px;border-radius:4px;background:#757a7d;margin:12px auto 2px;flex:none}
-.menu{position:absolute;right:8px;top:58px;width:min(280px,calc(100% - 16px));max-height:calc(100% - 76px);overflow:auto;background:#292f32;border-radius:9px;box-shadow:0 8px 24px #0008;z-index:5;padding:6px 0}
-.menu[hidden],.modal[hidden],.toast[hidden],#photo-input[hidden]{display:none}
-.menu button{width:100%;border:0;background:none;color:#eef0f1;text-align:left;padding:14px 17px;font-size:15px;cursor:pointer}
+.gesture{
+ height:4px;width:108px;border-radius:4px;
+ background:#757a7d;margin:12px auto 2px;flex:none
+}
+.menu{
+ position:absolute;right:8px;top:58px;
+ width:min(280px,calc(100% - 16px));
+ max-height:calc(100% - 76px);overflow:auto;
+ background:#292f32;border-radius:9px;
+ box-shadow:0 8px 24px #0008;z-index:5;padding:6px 0
+}
+.menu[hidden],.modal[hidden],.toast[hidden],
+#photo-input[hidden],#notification-icon-input[hidden]{display:none}
+.menu button{
+ width:100%;border:0;background:none;color:#eef0f1;
+ text-align:left;padding:14px 17px;font-size:15px;cursor:pointer
+}
 .menu button:hover{background:#384044}
 .menu-count{float:right;color:#aeb9bd;font-size:13px}
-.modal{position:absolute;inset:0;background:#0009;display:grid;place-items:center;z-index:10;padding:18px}
-.dialog{width:min(100%,390px);max-height:90%;overflow:auto;background:#252b2e;border-radius:20px;padding:22px;box-shadow:0 10px 40px #0008}
+.modal{
+ position:absolute;inset:0;background:#0009;
+ display:grid;place-items:center;z-index:10;padding:18px
+}
+.dialog{
+ width:min(100%,390px);max-height:90%;overflow:auto;
+ background:#252b2e;border-radius:20px;
+ padding:22px;box-shadow:0 10px 40px #0008
+}
 .dialog h2{margin:0 0 7px;font-size:20px;font-weight:500}
 .dialog p{margin:0 0 17px;color:#b7bec1;font-size:14px;line-height:1.5}
-.editor{width:100%;min-height:135px;max-height:36vh;overflow:auto;background:#171c1e;color:#f0f2f3;border:1px solid #596368;border-radius:9px;padding:12px;font:16px/1.5 Arial,sans-serif;outline:none;white-space:pre-wrap;overflow-wrap:anywhere}
-.editor:focus{border-color:#79c9ef}
+.editor{
+ width:100%;min-height:135px;max-height:36vh;
+ overflow:auto;background:#171c1e;color:#f0f2f3;
+ border:1px solid #596368;border-radius:9px;
+ padding:12px;font:16px/1.5 Arial,sans-serif;
+ outline:none;white-space:pre-wrap;overflow-wrap:anywhere
+}
 .editor:empty:before{content:attr(data-placeholder);color:#879196}
 .toolbar{display:flex;align-items:center;gap:7px;margin:8px 0 0;flex-wrap:wrap}
-.toolbar button{background:#343c40;color:#eef1f2;border:1px solid #50595e;border-radius:7px;padding:7px 11px;cursor:pointer}
+.toolbar button,.alignment-options button,.photo-actions button{
+ background:#343c40;color:#eef1f2;
+ border:1px solid #50595e;border-radius:7px;
+ padding:8px 11px;cursor:pointer
+}
 .toolbar span{font-size:12px;color:#aeb7bb}
-.dialog-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:8px;margin-top:17px}
-.dialog-actions button{background:transparent;color:var(--blue);border:0;padding:10px 13px;border-radius:20px;font-size:14px;cursor:pointer}
-.dialog-actions button.save{background:#234558;color:#d6f1ff}
+.dialog-actions{
+ display:flex;justify-content:flex-end;
+ flex-wrap:wrap;gap:8px;margin-top:17px
+}
+.dialog-actions button{
+ background:transparent;color:var(--blue);
+ border:0;padding:10px 13px;border-radius:20px;
+ font-size:14px;cursor:pointer
+}
+.dialog-actions button.save{
+ background:#234558;color:#d6f1ff
+}
 .field-label{display:block;color:#c4cbce;font-size:14px;margin:16px 0 7px}
-.text-field{width:100%;min-width:0;background:#171c1e;color:#f0f2f3;border:1px solid #596368;border-radius:8px;padding:11px;font-size:16px;outline:none}
-.text-field:focus{border-color:#79c9ef}
-.setting-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:5px 12px;margin:17px 0}
+.text-field{
+ width:100%;background:#171c1e;color:#f0f2f3;
+ border:1px solid #596368;border-radius:8px;
+ padding:11px;font-size:16px;outline:none
+}
+.setting-row{
+ display:grid;grid-template-columns:1fr auto;
+ align-items:center;gap:5px 12px;margin:17px 0
+}
 .setting-row label{font-size:14px;color:#e1e5e6}
 .setting-row output{font-size:13px;color:#b7c1c5}
-.setting-row input[type=range]{grid-column:1/-1;width:100%;accent-color:#79c9ef}
-.alignment-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
-.alignment-options button{min-width:0;padding:10px 5px;background:#343c40;color:#eef1f2;border:1px solid #50595e;border-radius:8px;cursor:pointer}
-.alignment-options button.active{border-color:#79c9ef;background:#234558;color:#d6f1ff}
+.setting-row input[type=range]{
+ grid-column:1/-1;width:100%;accent-color:#79c9ef
+}
+.alignment-options{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:8px;margin-top:12px
+}
+.alignment-options button.active{
+ border-color:#79c9ef;background:#234558;color:#d6f1ff
+}
 .preview-label{color:#b7bec1;font-size:13px;margin:15px 0 7px}
-.learn-preview{min-height:50px;background:#171c1e;border:1px solid #424b50;border-radius:9px;padding:12px;overflow-wrap:anywhere;white-space:pre-wrap;line-height:1.5}
-.photo-preview{width:96px;height:96px;border-radius:50%;overflow:hidden;margin:0 auto 15px;background:#171c1e;border:2px solid #596368;display:grid;place-items:center}
+.learn-preview{
+ min-height:50px;background:#171c1e;
+ border:1px solid #424b50;border-radius:9px;
+ padding:12px;overflow-wrap:anywhere;
+ white-space:pre-wrap;line-height:1.5
+}
+.photo-preview{
+ width:96px;height:96px;border-radius:50%;
+ overflow:hidden;margin:0 auto 15px;
+ background:#171c1e;border:2px solid #596368
+}
 .photo-preview img{width:100%;height:100%;object-fit:cover}
 .photo-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
-.photo-actions button{padding:12px 8px;border-radius:9px;border:1px solid #50595e;background:#343c40;color:#eef1f2;cursor:pointer;font-size:14px}
-.photo-actions button.primary{background:#234558;border-color:#426c80}
-.toast{position:absolute;left:50%;bottom:80px;transform:translateX(-50%);background:#2d3437;border-radius:24px;padding:12px 18px;color:white;font-size:14px;white-space:normal;text-align:center;z-index:15;box-shadow:0 4px 18px #0008;width:max-content;max-width:90%}
-@keyframes appear{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media(max-width:360px){.topbar{gap:10px;padding-inline:11px}.contact{font-size:19px}.footer{padding-left:19px;padding-right:19px}.dialog{padding:18px}.dialog-actions{gap:4px}}
-@media(min-width:461px){.phone{border-radius:14px;height:min(900px,96dvh)}}
+.toast{
+ position:absolute;left:50%;bottom:80px;
+ transform:translateX(-50%);background:#2d3437;
+ border-radius:24px;padding:12px 18px;color:white;
+ font-size:14px;text-align:center;z-index:15;
+ box-shadow:0 4px 18px #0008;width:max-content;max-width:90%
+}
+
+/* PERSONALIZAÇÃO DAS NOTIFICAÇÕES */
+.notification-icon-preview{
+ width:100px;height:100px;border-radius:22px;
+ overflow:hidden;margin:10px auto 15px;
+ border:2px solid #596368;background:#171c1e;
+ display:grid;place-items:center
+}
+.notification-icon-preview img{
+ width:100%;height:100%;object-fit:cover
+}
+.notification-preview{
+ background:#171c1e;border:1px solid #424b50;
+ border-radius:13px;padding:13px;margin-top:15px
+}
+.notification-preview-top{
+ display:flex;align-items:center;gap:10px;margin-bottom:9px
+}
+.notification-preview-top img{
+ width:34px;height:34px;border-radius:9px;object-fit:cover;
+ background:#343c40
+}
+.notification-preview-name{font-size:13px;color:#b7c1c5}
+.notification-preview-title{font-weight:600;font-size:15px;margin-bottom:5px}
+.notification-preview-message{font-size:14px;color:#d4dadd;line-height:1.4}
+.permission-note{
+ font-size:12px!important;color:#9eaaaf!important;
+ margin-top:12px!important
+}
+@keyframes appear{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1;transform:none}
+}
+@media(max-width:360px){
+ .topbar{gap:10px;padding-inline:11px}
+ .contact{font-size:19px}
+ .footer{padding-left:19px;padding-right:19px}
+ .dialog{padding:18px}
+}
+@media(min-width:461px){
+ .phone{border-radius:14px;height:min(900px,96dvh)}
+}
 </style>
 </head>
+
 <body>
-<main class="phone" aria-label="Conversa personalizável">
+<main class="phone" aria-label="Tutorial de notificações">
+
 <header class="topbar">
-<span class="back" aria-hidden="true">‹</span>
-<button class="avatar" id="avatar" aria-label="Mostrar próxima mensagem" title="Mostrar mensagem guardada">
-<svg id="default-avatar" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.7a9.3 9.3 0 1 0 0 18.6 9.3 9.3 0 0 0 0-18.6Zm0 3.4a3.35 3.35 0 1 1 0 6.7 3.35 3.35 0 0 1 0-6.7Zm0 13a7.05 7.05 0 0 1-5.62-2.8c.12-1.86 3.75-2.88 5.62-2.88s5.5 1.02 5.62 2.88A7.05 7.05 0 0 1 12 19.1Z"/></svg>
-<img id="profile-image" alt="Foto de perfil">
-</button>
-<input type="file" id="photo-input" accept="image/*" hidden>
-<div class="contact" id="contact-name">M-Pesa</div>
-<button class="more" id="more" aria-label="Mais opções">⋮</button>
+ <span class="back" aria-hidden="true">‹</span>
+ <button class="avatar" id="avatar" aria-label="Mostrar próxima mensagem">
+  <img id="profile-image" alt="Foto de perfil">
+ </button>
+ <input type="file" id="photo-input" accept="image/*" hidden>
+ <div class="contact" id="contact-name">Central de Notificações</div>
+ <button class="more" id="more" aria-label="Mais opções">⋮</button>
 </header>
 
 <section class="chat" id="chat" aria-label="Mensagens">
-<div class="unread" id="initial-unread"><span>Não lidas</span></div>
-<div class="date">quarta-feira · 09:28</div>
-<div class="bubble editable-message" data-message-id="original-1">Confirmado DJ76LUOLRIU.  Recebeste 350.00MT de
-<a class="message-underline">258845646041</a> - GLORIA aos
-<a class="message-underline">7/10/26 às 9:27 AM</a>. O teu novo
-saldo M-Pesa é de 606.00MT. Em
-caso de dúvida, liga 100. M-Pesa é
-fácil!</div>
+ <div class="unread" id="initial-unread"><span>Não lidas</span></div>
+ <div class="date">Hoje · 09:28</div>
+ <div class="bubble editable-message" data-message-id="original-1">
+  Bem-vindo ao Tutorial de Notificações!
 
-<div class="center-date">Ontem · 19:21</div>
-<div class="carrier">A enviar com <a>Vodacom</a></div>
-<div class="bubble editable-message" data-message-id="original-2">Confirmado DJ88LVF9K34.  Transferiste 50.00MT e a taxa foi
-de 0.00MT para <a class="message-underline">858027816</a> -
-ALBERTINA aos <a class="message-underline">8/10/26 às 7:23 PM</a>.
-O teu novo saldo M-Pesa é de
-556.00MT. Continua a transferir
-SEM TAXAS de M-Pesa para
-M-Pesa. Em caso de dúvida, liga
-100.</div>
+  Nesta área podes acompanhar avisos,
+  novidades e informações importantes
+  sobre a utilização da aplicação.
+ </div>
+ <div class="center-date">Atualizações recentes</div>
+ <div class="carrier">Central de informações</div>
+ <div class="bubble editable-message" data-message-id="original-2">
+  Mantém as notificações ativadas para
+  receberes as atualizações disponíveis.
 
-<div class="carrier">A enviar com <a>Vodacom</a></div>
-<div id="new-messages"></div>
+  Podes consultar as mensagens anteriores
+  sempre que precisares.
+ </div>
+ <div class="carrier">Central de informações</div>
+ <div id="new-messages"></div>
 </section>
 
 <footer class="footer" id="footer">
-<div class="footer-content">
-<div class="footer-text" id="footer-text" contenteditable="true" spellcheck="false" aria-label="Texto editável do rodapé">O remetente não pode aceitar respostas. Contacte-o diretamente.</div>
-<div class="learn-more-wrap" id="learn-more-wrap"><a id="learn-more" role="link" tabindex="0">Saiba mais</a></div>
-<div class="footer-extra" id="footer-extra" contenteditable="true" spellcheck="false" aria-label="Texto complementar editável"></div>
-</div>
+ <div class="footer-content">
+  <div class="footer-text" id="footer-text" contenteditable="true" spellcheck="false">
+   Esta é uma página informativa. As mensagens apresentadas são exemplos de notificações.
+  </div>
+  <div class="learn-more-wrap" id="learn-more-wrap">
+   <a id="learn-more" role="link" tabindex="0">Ver tutorial</a>
+  </div>
+  <div class="footer-extra" id="footer-extra" contenteditable="true" spellcheck="false"></div>
+ </div>
 </footer>
+
 <div class="gesture"></div>
 
 <div class="menu" id="menu" hidden>
-<button id="add">＋ &nbsp; Adicionar mensagem <span class="menu-count" id="pending-count"></span></button>
-<button id="change-photo">▧ &nbsp; Adicionar foto da galeria</button>
-<button id="remove-photo">× &nbsp; Remover foto de perfil</button>
-<button id="appearance">⚙ &nbsp; Personalizar aparência</button>
-<button id="edit-page">✎ &nbsp; Editar textos da página</button>
-<button id="edit-footer">✎ &nbsp; Editar texto inferior</button>
-<button id="edit-learn-more">✎ &nbsp; Editar Saiba mais</button>
-<button id="exit">Sair do menu</button>
+ <button id="add">＋ &nbsp; Adicionar mensagem <span class="menu-count" id="pending-count"></span></button>
+ <button id="customize-notification">♧ &nbsp; Personalizar notificação</button>
+ <button id="enable-notifications">♧ &nbsp; Ativar notificações</button>
+ <button id="change-photo">▧ &nbsp; Alterar foto de perfil</button>
+ <button id="remove-photo">× &nbsp; Remover foto de perfil</button>
+ <button id="appearance">⚙ &nbsp; Personalizar aparência</button>
+ <button id="edit-page">✎ &nbsp; Editar textos da página</button>
+ <button id="edit-footer">✎ &nbsp; Editar texto inferior</button>
+ <button id="edit-learn-more">✎ &nbsp; Editar texto do tutorial</button>
+ <button id="exit">Fechar menu</button>
 </div>
 
-<div class="modal" id="message-modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="message-title">
-<h2 id="message-title">Adicionar mensagem</h2>
-<p id="message-description">Guarda mensagens para as mostrar na conversa ao tocar na foto do perfil. A hora de entrada aparecerá acima da mensagem.</p>
-<div class="editor" id="message-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Escreve aqui a mensagem…"></div>
-<div class="toolbar"><button type="button" id="underline" title="Sublinhar texto"><u>U</u></button><span>Seleciona um trecho e toca em U para o sublinhar.</span></div>
-<div class="dialog-actions"><button id="cancel-message">Cancelar</button><button class="save" id="save-message">Guardar mensagem</button></div>
-</section></div>
+<!-- CONFIGURAÇÃO GUARDADA UMA ÚNICA VEZ -->
+<div class="modal" id="notification-settings-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2>Personalizar notificação</h2>
+  <p>Define o nome, o título, o ícone e o som. Depois de guardar, estas informações serão utilizadas automaticamente em todas as notificações seguintes.</p>
 
-<div class="modal" id="settings-modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="settings-title">
-<h2 id="settings-title">Personalizar aparência</h2><p>Altera o nome e o tamanho das mensagens. O rodapé também acompanha o tamanho das palavras.</p>
-<label class="field-label" for="sender-name">Nome mostrado na conversa</label><input class="text-field" id="sender-name" maxlength="40" placeholder="Ex.: M-Pesa">
-<div class="setting-row"><label for="font-size">Tamanho das palavras</label><output id="font-output"></output><input id="font-size" type="range" min="14" max="28" value="20"></div>
-<div class="setting-row"><label for="bubble-width">Largura dos quadros</label><output id="width-output"></output><input id="bubble-width" type="range" min="60" max="100" value="83"></div>
-<div class="setting-row"><label for="bubble-height">Altura mínima dos quadros</label><output id="height-output"></output><input id="bubble-height" type="range" min="0" max="120" value="0"></div>
-<div class="dialog-actions"><button id="cancel-settings">Cancelar</button><button class="save" id="save-settings">Guardar definições</button></div>
-</section></div>
+  <label class="field-label" for="notification-app-name">Nome da notificação / aplicação</label>
+  <input class="text-field" id="notification-app-name" maxlength="50" placeholder="Ex.: Minha Central">
 
-<div class="modal" id="footer-modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="footer-title">
-<h2 id="footer-title">Editar texto inferior</h2><p>Edita o aviso principal e o texto complementar nesta janela.</p>
-<label class="field-label" for="footer-editor">Texto principal</label><div class="editor" id="footer-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Escreve o texto principal…"></div>
-<label class="field-label" for="extra-editor">Texto complementar</label><div class="editor" id="extra-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Escreve o texto complementar…"></div>
-<div class="dialog-actions"><button id="clear-footer">Apagar textos</button><button id="cancel-footer">Cancelar</button><button class="save" id="save-footer">Guardar textos</button></div>
-</section></div>
+  <label class="field-label" for="notification-title">Título que aparecerá na notificação</label>
+  <input class="text-field" id="notification-title" maxlength="70" placeholder="Ex.: Nova mensagem">
 
-<div class="modal" id="page-modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="page-title">
-<h2 id="page-title">Editar textos da página</h2><p>Personaliza todos os textos da área inferior no mesmo lugar.</p>
-<label class="field-label" for="page-main-editor">Texto principal</label><div class="editor" id="page-main-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Escreve o texto principal…"></div>
-<label class="field-label" for="page-learn-editor">Texto do Saiba mais</label><input class="text-field" id="page-learn-editor" maxlength="120" placeholder="Ex.: Saiba mais sobre esta informação">
-<label class="field-label" for="page-extra-editor">Texto complementar</label><div class="editor" id="page-extra-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Adiciona aqui outra informação…"></div>
-<div class="field-label">Alinhamento dos textos</div><div class="alignment-options"><button type="button" data-page-align="left">Esquerda</button><button type="button" data-page-align="center">Centro</button><button type="button" data-page-align="right">Direita</button></div>
-<div class="dialog-actions"><button id="cancel-page">Cancelar</button><button class="save" id="save-page">Guardar página</button></div>
-</section></div>
+  <label class="field-label">Ícone da notificação</label>
+  <div class="notification-icon-preview">
+   <img id="notification-icon-preview" alt="Ícone da notificação">
+  </div>
+  <div class="photo-actions">
+   <button type="button" id="choose-notification-icon">Escolher imagem</button>
+   <button type="button" id="reset-notification-icon">Ícone padrão</button>
+  </div>
+  <input type="file" id="notification-icon-input" accept="image/*" hidden>
 
-<div class="modal" id="learn-modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="learn-title">
-<h2 id="learn-title">Editar texto e posição</h2><p>Altera o texto do Saiba mais e escolhe a posição.</p>
-<label class="field-label" for="learn-editor">Texto do botão</label><input class="text-field" id="learn-editor" type="text" maxlength="120" placeholder="Ex.: Saiba mais sobre esta informação">
-<div class="field-label">Posição do texto</div><div class="alignment-options"><button type="button" data-align="left" id="align-left">Esquerda</button><button type="button" data-align="center" id="align-center">Centro</button><button type="button" data-align="right" id="align-right">Direita</button></div>
-<div class="preview-label">Pré-visualização</div><div class="learn-preview" id="learn-preview">Saiba mais</div>
-<div class="dialog-actions"><button id="clear-learn">Eliminar texto</button><button id="cancel-learn">Cancelar</button><button class="save" id="save-learn">Guardar alterações</button></div>
-</section></div>
+  <label class="field-label" for="notification-sound">Som da notificação</label>
+  <select class="text-field" id="notification-sound">
+   <option value="zinzin">Zin-zin (duplo toque)</option>
+   <option value="single">Som simples</option>
+   <option value="none">Sem som</option>
+  </select>
 
-<div class="modal" id="photo-modal" hidden><section class="dialog" role="dialog" aria-modal="true" aria-labelledby="photo-title">
-<h2 id="photo-title">Foto de perfil</h2><p>Escolhe uma fotografia da galeria do teu dispositivo.</p>
-<div class="photo-preview"><img id="photo-modal-preview" alt="Pré-visualização da fotografia"></div>
-<div class="photo-actions"><button class="primary" id="select-gallery">Escolher da galeria</button><button id="delete-photo-modal">Remover fotografia</button></div>
-<div class="dialog-actions"><button id="cancel-photo">Fechar</button></div>
-</section></div>
+  <div class="notification-preview">
+   <div class="notification-preview-top">
+    <img id="notification-preview-icon" alt="">
+    <span class="notification-preview-name" id="notification-preview-name">Minha Central</span>
+   </div>
+   <div class="notification-preview-title" id="notification-preview-title">Nova mensagem</div>
+   <div class="notification-preview-message">O conteúdo será a mensagem que adicionares no menu.</div>
+  </div>
+
+  <p class="permission-note">A pré-visualização é apenas um exemplo. O sistema operativo pode apresentar as notificações com um estilo próprio.</p>
+
+  <div class="dialog-actions">
+   <button id="cancel-notification-settings">Cancelar</button>
+   <button class="save" id="save-notification-settings">Guardar personalização</button>
+  </div>
+ </section>
+</div>
+
+<!-- PERMISSÃO: SÓ APARECE QUANDO AINDA NÃO FOI DECIDIDA -->
+<div class="modal" id="permission-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2>Ativar notificações</h2>
+  <p>Permite as notificações para receberes os avisos no teu dispositivo quando uma mensagem for apresentada.</p>
+  <div class="dialog-actions">
+   <button id="later-permission">Agora não</button>
+   <button class="save" id="allow-permission">Permitir notificações</button>
+  </div>
+ </section>
+</div>
+
+<div class="modal" id="message-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2 id="message-title">Adicionar mensagem</h2>
+  <p id="message-description">Escreve uma mensagem para guardar e apresentar na conversa.</p>
+  <div class="editor" id="message-editor" contenteditable="true" role="textbox" aria-multiline="true" data-placeholder="Escreve aqui a mensagem…"></div>
+  <div class="toolbar">
+   <button type="button" id="underline"><u>U</u></button>
+   <span>Seleciona um trecho e toca em U para sublinhar.</span>
+  </div>
+  <div class="dialog-actions">
+   <button id="cancel-message">Cancelar</button>
+   <button class="save" id="save-message">Guardar mensagem</button>
+  </div>
+ </section>
+</div>
+
+<div class="modal" id="settings-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2>Personalizar aparência</h2>
+  <p>Personaliza o nome e a apresentação das mensagens.</p>
+  <label class="field-label" for="sender-name">Nome da conversa</label>
+  <input class="text-field" id="sender-name" maxlength="40">
+  <div class="setting-row">
+   <label for="font-size">Tamanho das palavras</label>
+   <output id="font-output"></output>
+   <input id="font-size" type="range" min="14" max="28" value="20">
+  </div>
+  <div class="setting-row">
+   <label for="bubble-width">Largura dos quadros</label>
+   <output id="width-output"></output>
+   <input id="bubble-width" type="range" min="60" max="100" value="83">
+  </div>
+  <div class="setting-row">
+   <label for="bubble-height">Altura mínima dos quadros</label>
+   <output id="height-output"></output>
+   <input id="bubble-height" type="range" min="0" max="120" value="0">
+  </div>
+  <div class="dialog-actions">
+   <button id="cancel-settings">Cancelar</button>
+   <button class="save" id="save-settings">Guardar definições</button>
+  </div>
+ </section>
+</div>
+
+<div class="modal" id="footer-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2>Editar texto inferior</h2>
+  <label class="field-label">Texto principal</label>
+  <div class="editor" id="footer-editor" contenteditable="true"></div>
+  <label class="field-label">Texto complementar</label>
+  <div class="editor" id="extra-editor" contenteditable="true"></div>
+  <div class="dialog-actions">
+   <button id="clear-footer">Apagar textos</button>
+   <button id="cancel-footer">Cancelar</button>
+   <button class="save" id="save-footer">Guardar textos</button>
+  </div>
+ </section>
+</div>
+
+<div class="modal" id="page-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2>Editar textos da página</h2>
+  <label class="field-label">Texto principal</label>
+  <div class="editor" id="page-main-editor" contenteditable="true"></div>
+  <label class="field-label">Texto do tutorial</label>
+  <input class="text-field" id="page-learn-editor" maxlength="120">
+  <label class="field-label">Texto complementar</label>
+  <div class="editor" id="page-extra-editor" contenteditable="true"></div>
+  <div class="field-label">Alinhamento dos textos</div>
+  <div class="alignment-options">
+   <button type="button" data-page-align="left">Esquerda</button>
+   <button type="button" data-page-align="center">Centro</button>
+   <button type="button" data-page-align="right">Direita</button>
+  </div>
+  <div class="dialog-actions">
+   <button id="cancel-page">Cancelar</button>
+   <button class="save" id="save-page">Guardar página</button>
+  </div>
+ </section>
+</div>
+
+<div class="modal" id="learn-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2>Editar texto do tutorial</h2>
+  <label class="field-label">Texto apresentado</label>
+  <input class="text-field" id="learn-editor" maxlength="120">
+  <div class="field-label">Posição do texto</div>
+  <div class="alignment-options">
+   <button data-align="left">Esquerda</button>
+   <button data-align="center">Centro</button>
+   <button data-align="right">Direita</button>
+  </div>
+  <div class="preview-label">Pré-visualização</div>
+  <div class="learn-preview" id="learn-preview">Ver tutorial</div>
+  <div class="dialog-actions">
+   <button id="clear-learn">Eliminar texto</button>
+   <button id="cancel-learn">Cancelar</button>
+   <button class="save" id="save-learn">Guardar alterações</button>
+  </div>
+ </section>
+</div>
+
+<div class="modal" id="photo-modal" hidden>
+ <section class="dialog" role="dialog" aria-modal="true">
+  <h2>Foto de perfil</h2>
+  <p>Escolhe uma fotografia da galeria do teu dispositivo.</p>
+  <div class="photo-preview">
+   <img id="photo-modal-preview" alt="Pré-visualização">
+  </div>
+  <div class="photo-actions">
+   <button id="select-gallery">Escolher da galeria</button>
+   <button id="delete-photo-modal">Remover fotografia</button>
+  </div>
+  <div class="dialog-actions">
+   <button id="cancel-photo">Fechar</button>
+  </div>
+ </section>
+</div>
+
 <div class="toast" id="toast" hidden></div>
 </main>
 
 <script>
 const $=id=>document.getElementById(id);
-const DEFAULT_PROFILE_PHOTO='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 1248%22%3E%3Crect width=%221200%22 height=%221248%22 fill=%22black%22/%3E%3Ccircle cx=%22600%22 cy=%22624%22 r=%22665%22 fill=%22%232e2e2e%22/%3E%3Ccircle cx=%22603%22 cy=%22454%22 r=%22132%22 fill=%22%23999999%22/%3E%3Cpath d=%22M373 900 C373 770 478 665 603 665 C728 665 833 770 833 900 L833 920 C833 950 704 982 603 982 C502 982 373 950 373 920 Z%22 fill=%22%23999999%22/%3E%3C/svg%3E';
 
-const STORE_MESSAGES='mpesa_demo_messages_v3';
-const STORE_HISTORY='mpesa_demo_history_v3';
-const STORE_SETTINGS='mpesa_demo_settings_v3';
-const STORE_PHOTO='mpesa_demo_profile_photo_v3';
-const STORE_FOOTER='mpesa_demo_footer_text_v3';
-const STORE_EXTRA='mpesa_demo_footer_extra_v1';
-const STORE_LEARN_TEXT='mpesa_demo_learn_text_v1';
-const STORE_LEARN_ALIGN='mpesa_demo_learn_align_v1';
-const STORE_PAGE_ALIGN='mpesa_demo_page_align_v1';
-const STORE_ORIGINALS='mpesa_demo_original_messages_v1';
-const STORE_BALANCE='mpesa_demo_balance_v1';
-const STORE_BASE_BALANCE='mpesa_demo_base_balance_v1';
-const STORE_PROCESSED_RECEIPTS='mpesa_demo_processed_receipts_v1';
-const STORE_INITIAL_UNREAD='mpesa_demo_initial_unread_v1';
+const DEFAULT_PHOTO='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22%3E%3Ccircle cx=%2260%22 cy=%2260%22 r=%2260%22 fill=%22%23343c40%22/%3E%3Ccircle cx=%2260%22 cy=%2243%22 r=%2220%22 fill=%22%23999999%22/%3E%3Cpath d=%22M20 110 Q20 70 60 70 Q100 70 100 110%22 fill=%22%23999999%22/%3E%3C/svg%3E';
+
+const PREFIX='tutorial_notifications_';
+const STORE_MESSAGES=PREFIX+'messages';
+const STORE_HISTORY=PREFIX+'history';
+const STORE_SETTINGS=PREFIX+'settings';
+const STORE_PHOTO=PREFIX+'profile_photo';
+const STORE_FOOTER=PREFIX+'footer';
+const STORE_EXTRA=PREFIX+'extra';
+const STORE_LEARN=PREFIX+'learn';
+const STORE_LEARN_ALIGN=PREFIX+'learn_align';
+const STORE_PAGE_ALIGN=PREFIX+'page_align';
+const STORE_INITIAL_UNREAD=PREFIX+'initial_unread';
+const STORE_NOTIFICATION_SETTINGS=PREFIX+'notification_settings';
+const PUSH_TAG='tutorial-saved-message';
 
 function readStore(key,fallback){
- try{const v=JSON.parse(localStorage.getItem(key));return v===null?fallback:v}catch{return fallback}
+ try{
+  const value=JSON.parse(localStorage.getItem(key));
+  return value===null?fallback:value;
+ }catch{return fallback}
 }
+
 let pending=readStore(STORE_MESSAGES,[]);
 let history=readStore(STORE_HISTORY,[]);
-let settings=readStore(STORE_SETTINGS,{name:'M-Pesa',font:20,width:83,height:0});
+let settings=readStore(STORE_SETTINGS,{
+ name:'Central de Notificações',
+ font:20,width:83,height:0
+});
+
+let notificationSettings=readStore(STORE_NOTIFICATION_SETTINGS,{
+ appName:'Minha Central',
+ title:'Nova mensagem',
+ icon:DEFAULT_PHOTO,
+ sound:'zinzin'
+});
+
 if(!Array.isArray(pending))pending=[];
 if(!Array.isArray(history))history=[];
-if(!settings||typeof settings!=='object')settings={name:'M-Pesa',font:20,width:83,height:0};
+if(!settings||typeof settings!=='object'){
+ settings={name:'Central de Notificações',font:20,width:83,height:0};
+}
+if(!notificationSettings||typeof notificationSettings!=='object'){
+ notificationSettings={appName:'Minha Central',title:'Nova mensagem',icon:DEFAULT_PHOTO,sound:'zinzin'};
+}
 
-function parseMoneyAmount(value){
- if(typeof value!=='string')return null;
- let n=value.trim().replace(/\s/g,'');
- if(n.includes(',')&&n.includes('.')){
-  n=n.lastIndexOf(',')>n.lastIndexOf('.')?n.replace(/\./g,'').replace(',','.'):n.replace(/,/g,'');
- }else if(n.includes(',')){
-  n=n.replace(',','.');
- }
- const result=Number(n);
- return Number.isFinite(result)?result:null;
-}
-function formatMoney(value){
- const number=Number(value);
- return (Number.isFinite(number)?number:0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-}
-function htmlToPlainText(html){
- const p=new DOMParser().parseFromString(String(html||''),'text/html');
- p.querySelectorAll('br').forEach(x=>x.replaceWith(document.createTextNode('\n')));
- p.querySelectorAll('div,p').forEach(x=>x.append(document.createTextNode('\n')));
- return p.body.textContent||'';
-}
-function extractBalance(text){
- const m=String(text||'').match(/(?:O\s+teu\s+)?novo\s+saldo(?:\s+M-Pesa)?\s*(?:é|e|:)?\s*(?:de\s*)?([\d.,]+)\s*(?:MT|MZN)\b/i);
- return m?parseMoneyAmount(m[1]):null;
-}
-function extractTransaction(text){
- const t=String(text||'');
- const patterns=[
-  {type:'received',re:/\b(?:Recebeste|Recebeu|Recebido|Valor\s+recebido|Recebimento(?:\s+de)?)\s+(?:o\s+valor\s+de\s+)?([\d.,]+)\s*(?:MT|MZN)\b/i},
-  {type:'transfer',re:/\b(?:Transferiste|Transferiu|Transferência\s+de|Enviaste|Enviou|Pagaste|Pagamento\s+de)\s+(?:o\s+valor\s+de\s+)?([\d.,]+)\s*(?:MT|MZN)\b/i},
-  {type:'transfer',re:/\bLevantaste\s+([\d.,]+)\s*(?:MT|MZN)\b/i}
- ];
- for(const p of patterns){
-  const m=t.match(p.re);
-  if(m){
-   const amount=parseMoneyAmount(m[1]);
-   if(amount!==null&&amount>0)return {type:p.type,amount};
-  }
- }
- return null;
-}
-function calculateBaseFromOriginals(originals){
- if(!Array.isArray(originals))return null;
- for(const item of originals){
-  const plain=htmlToPlainText(item.html||'');
-  const transaction=extractTransaction(plain);
-  const after=extractBalance(plain);
-  if(transaction&&after!==null){
-   const delta=transaction.type==='received'?transaction.amount:-transaction.amount;
-   return Math.round((after-delta)*100)/100;
-  }
- }
- return null;
-}
-function getInitialBaseBalance(){
- const savedBase=localStorage.getItem(STORE_BASE_BALANCE);
- if(savedBase!==null&&Number.isFinite(Number(savedBase)))return Number(savedBase);
- const originals=readStore(STORE_ORIGINALS,null);
- const calculated=calculateBaseFromOriginals(originals);
- if(calculated!==null&&calculated>=0)return calculated;
- const savedBalance=localStorage.getItem(STORE_BALANCE);
- if(savedBalance!==null&&Number.isFinite(Number(savedBalance)))return Math.max(0,Number(savedBalance));
- return 256;
-}
-let baseBalance=getInitialBaseBalance();
-try{localStorage.setItem(STORE_BASE_BALANCE,String(baseBalance))}catch{}
-let balance=baseBalance;
-let processedReceipts=new Set(readStore(STORE_PROCESSED_RECEIPTS,[]));
-let initialUnreadVisible=localStorage.getItem(STORE_INITIAL_UNREAD)===null?true:localStorage.getItem(STORE_INITIAL_UNREAD)==='true';
-const menu=$('menu'),chat=$('chat'),editor=$('message-editor'),toast=$('toast');
-let editingMessage=null,selectedMessageElement=null,longPressTimer=null,longPressTriggered=false,suppressNextClick=false;
+let initialUnreadVisible=localStorage.getItem(STORE_INITIAL_UNREAD)!=='false';
+let editingMessage=null;
+let selectedMessageElement=null;
+let longPressTimer=null;
+let suppressNextClick=false;
+let notificationRegistration=null;
+let currentNotification=null;
+
+const menu=$('menu');
+const chat=$('chat');
+const editor=$('message-editor');
+const toast=$('toast');
 
 function persist(){
  try{
   localStorage.setItem(STORE_MESSAGES,JSON.stringify(pending));
   localStorage.setItem(STORE_HISTORY,JSON.stringify(history));
-  localStorage.setItem(STORE_BALANCE,String(balance));
-  localStorage.setItem(STORE_BASE_BALANCE,String(baseBalance));
-  localStorage.setItem(STORE_PROCESSED_RECEIPTS,JSON.stringify([...processedReceipts]));
   localStorage.setItem(STORE_INITIAL_UNREAD,String(initialUnreadVisible));
  }catch{}
 }
+
 function notify(message){
- toast.textContent=message;toast.hidden=false;clearTimeout(notify.timer);
+ toast.textContent=message;
+ toast.hidden=false;
+ clearTimeout(notify.timer);
  notify.timer=setTimeout(()=>toast.hidden=true,2600);
 }
+
 function escapeHtml(value){
- return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ return String(value).replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;',
+  '"':'&quot;',"'":'&#39;'
+ }[c]));
 }
+
 function safeHtml(value){
  const parsed=new DOMParser().parseFromString(String(value||''),'text/html');
  function clean(node){
   let out='';
   for(const child of node.childNodes){
-   if(child.nodeType===Node.TEXT_NODE)out+=escapeHtml(child.nodeValue);
-   else if(child.nodeType===Node.ELEMENT_NODE){
-    const tag=child.tagName.toLowerCase(),inner=clean(child);
+   if(child.nodeType===Node.TEXT_NODE){
+    out+=escapeHtml(child.nodeValue);
+   }else if(child.nodeType===Node.ELEMENT_NODE){
+    const tag=child.tagName.toLowerCase();
+    const inner=clean(child);
     if(tag==='br')out+='<br>';
-    else if(['u','b','strong','i','em','a','span'].includes(tag)){
-     if(tag==='a'||child.classList.contains('message-underline'))out+='<span class="message-underline">'+inner+'</span>';
-     else out+='<'+tag+'>'+inner+'</'+tag+'>';
-    }else if(tag==='div'||tag==='p')out+=inner+'<br>';
-    else out+=inner;
+    else if(['u','b','strong','i','em','span'].includes(tag)){
+     out+='<'+tag+'>'+inner+'</'+tag+'>';
+    }else if(tag==='div'||tag==='p'){
+     out+=inner+'<br>';
+    }else out+=inner;
    }
   }
   return out;
  }
  return clean(parsed.body).replace(/(?:<br>)+$/,'');
 }
-function autoUnderlineNumbersAndDates(html){
- const parsed=new DOMParser().parseFromString(String(html||''),'text/html');
- const patterns=[/\b\d{1,2}[\/.-]\d{1,2}[\/.-]\d{2,4}(?:\s*(?:às|as)?\s*\d{1,2}:\d{2}\s*(?:AM|PM)?)?|\b\d{1,2}:\d{2}\s*(?:AM|PM)\b/gi,/(?:\+\d{1,3}[\s.-]?)?\b\d{8,15}\b/g];
- const walker=parsed.createTreeWalker(parsed.body,NodeFilter.SHOW_TEXT),nodes=[];let node;
- while(node=walker.nextNode())if(!node.parentElement.closest('.message-underline,a,script,style'))nodes.push(node);
- nodes.forEach(textNode=>{
-  const text=textNode.nodeValue,matches=[];
-  patterns.forEach((re,priority)=>{re.lastIndex=0;let m;while((m=re.exec(text)))matches.push({start:m.index,end:m.index+m[0].length,value:m[0],priority:priority+1})});
-  matches.sort((a,b)=>a.start-b.start||b.priority-a.priority||b.end-a.end);
-  const filtered=[];
-  matches.forEach(m=>{const last=filtered[filtered.length-1];if(last&&m.start<last.end){if(m.priority>last.priority)filtered[filtered.length-1]=m}else filtered.push(m)});
-  if(!filtered.length)return;
-  const frag=document.createDocumentFragment();let pos=0;
-  filtered.forEach(m=>{if(m.start>pos)frag.append(document.createTextNode(text.slice(pos,m.start)));const span=document.createElement('span');span.className='message-underline';span.textContent=m.value;frag.append(span);pos=m.end});
-  if(pos<text.length)frag.append(document.createTextNode(text.slice(pos)));
-  textNode.parentNode.replaceChild(frag,textNode);
- });
- return parsed.body.innerHTML;
-}
-function cleanMessageHtml(value){return autoUnderlineNumbersAndDates(safeHtml(value))}
-function editorText(id){return safeHtml($(id).innerHTML)}
+
+function cleanMessageHtml(value){return safeHtml(value)}
 function setEditorHtml(id,value){$(id).innerHTML=safeHtml(value||'')}
-function updatePendingCount(){$('pending-count').textContent=pending.length?String(pending.length):''}
+function editorText(id){return safeHtml($(id).innerHTML)}
+
+function updatePendingCount(){
+ $('pending-count').textContent=pending.length?String(pending.length):'';
+}
+
 function applySettings(){
- $('contact-name').textContent=settings.name||'M-Pesa';
+ $('contact-name').textContent=settings.name||'Central de Notificações';
  const font=Number(settings.font)||20;
  document.documentElement.style.setProperty('--message-size',font+'px');
  document.documentElement.style.setProperty('--bubble-width',(Number(settings.width)||83)+'%');
  document.documentElement.style.setProperty('--bubble-height',(Number(settings.height)||0)+'px');
  document.documentElement.style.setProperty('--footer-scale',String(font/20));
 }
+
 function formatEntryTime(timestamp){
- return new Date(timestamp).toLocaleTimeString('pt-MZ',{hour:'2-digit',minute:'2-digit',hour12:false});
-}
-function formatTransactionDate(timestamp){
- const d=new Date(timestamp);
- return `${d.getDate()}/${d.getMonth()+1}/${String(d.getFullYear()).slice(-2)} às ${d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})}`;
-}
-function updateTransactionTime(html,timestamp){
- const parsed=new DOMParser().parseFromString(String(html||''),'text/html');
- const newTime=formatTransactionDate(timestamp);
- const walker=parsed.createTreeWalker(parsed.body,NodeFilter.SHOW_TEXT);
- const nodes=[];let n;
- while(n=walker.nextNode())nodes.push(n);
- const pattern=/\b\d{1,2}[\/.-]\d{1,2}[\/.-]\d{2,4}\s*(?:às|as)?\s*\d{1,2}:\d{2}\s*(?:AM|PM)?/i;
- let updated=false;
- for(const textNode of nodes){
-  if(pattern.test(textNode.nodeValue)){
-   textNode.nodeValue=textNode.nodeValue.replace(pattern,newTime);
-   updated=true;break;
-  }
- }
- if(!updated){
-  const timeOnly=/\b\d{1,2}:\d{2}\s*(?:AM|PM)\b/i;
-  for(const textNode of nodes){
-   if(timeOnly.test(textNode.nodeValue)){
-    textNode.nodeValue=textNode.nodeValue.replace(timeOnly,newTime);
-    updated=true;break;
-   }
-  }
- }
- return cleanMessageHtml(parsed.body.innerHTML);
-}
-function updateReceiptBalance(html,newBalance){
- const parsed=new DOMParser().parseFromString(String(html||''),'text/html');
- const pattern=/(?:O\s+teu\s+)?novo\s+saldo(?:\s+M-Pesa)?\s*(?:é|e|:)?\s*(?:de\s*)?[\d.,]+\s*(?:MT|MZN)\.?/i;
- const walker=parsed.createTreeWalker(parsed.body,NodeFilter.SHOW_TEXT),nodes=[];let n;
- while(n=walker.nextNode())nodes.push(n);
- let updated=false;
- for(const textNode of nodes){
-  if(pattern.test(textNode.nodeValue)){
-   textNode.nodeValue=textNode.nodeValue.replace(pattern,'O teu novo saldo M-Pesa é de '+formatMoney(newBalance)+'MT.');
-   updated=true;break;
-  }
- }
- if(!updated){
-  const div=document.createElement('div');
-  div.textContent='O teu novo saldo M-Pesa é de '+formatMoney(newBalance)+'MT.';
-  parsed.body.append(div);
- }
- return cleanMessageHtml(parsed.body.innerHTML);
-}
-
-/* RECALCULAR O SALDO A PARTIR DO SALDO INICIAL E DAS TRANSAÇÕES EXISTENTES */
-function updateTransactionRecord(message,html,after,transaction,id){
- message.html=html;
- message.balanceAfter=after;
- message.transactionType=transaction.type;
- message.transactionAmount=transaction.amount;
- message.receiptProcessed=true;
- if(id)processedReceipts.add(String(id));
-}
-function recalculateAllBalances(){
- let running=Math.round(Number(baseBalance)*100)/100;
- const newProcessed=new Set();
-
- const originals=Array.from(document.querySelectorAll('#chat > .bubble.editable-message'));
- originals.forEach(bubble=>{
-  const id=bubble.dataset.messageId||'';
-  let html=bubble.innerHTML;
-  const plain=htmlToPlainText(html);
-  const transaction=extractTransaction(plain);
-  if(!transaction)return;
-
-  const delta=transaction.type==='received'?transaction.amount:-transaction.amount;
-  running=Math.round((running+delta)*100)/100;
-  html=updateReceiptBalance(html,running);
-  bubble.innerHTML=html;
-  newProcessed.add(id);
- });
-
- history.forEach(message=>{
-  const id=String(message.id||message.savedAt||message.receivedAt||'');
-  const plain=htmlToPlainText(message.html||'');
-  const transaction=extractTransaction(plain);
-  if(!transaction)return;
-
-  const delta=transaction.type==='received'?transaction.amount:-transaction.amount;
-  running=Math.round((running+delta)*100)/100;
-  message.html=updateReceiptBalance(message.html,running);
-  message.balanceAfter=running;
-  message.transactionType=transaction.type;
-  message.transactionAmount=transaction.amount;
-  message.receiptProcessed=true;
-  if(id)newProcessed.add(id);
- });
-
- balance=running;
- processedReceipts=newProcessed;
- saveOriginalMessages();
- persist();
-}
-function applyTransaction(message){
- if(!message)return message;
- message.html=updateTransactionTime(message.html,message.receivedAt||Date.now());
- return message;
-}
-
-function saveOriginalMessages(){
- const originals=Array.from(document.querySelectorAll('#chat > .bubble.editable-message')).map((b,i)=>({id:b.dataset.messageId||'original-'+i,html:b.innerHTML}));
- try{localStorage.setItem(STORE_ORIGINALS,JSON.stringify(originals))}catch{}
-}
-function loadOriginalMessages(){
- const saved=readStore(STORE_ORIGINALS,null);
- if(!Array.isArray(saved)||!saved.length){
-  document.querySelectorAll('#chat > .bubble.editable-message').forEach(b=>b.innerHTML=cleanMessageHtml(b.innerHTML));
-  saveOriginalMessages();return;
- }
- saved.forEach(item=>{
-  const bubble=Array.from(document.querySelectorAll('#chat > .bubble.editable-message')).find(b=>b.dataset.messageId===item.id);
-  if(bubble)bubble.innerHTML=cleanMessageHtml(item.html);
+ return new Date(timestamp).toLocaleTimeString('pt-MZ',{
+  hour:'2-digit',minute:'2-digit',hour12:false
  });
 }
+
 function dismissUnreadLine(line,message){
  if(message)message.unread=false;
  if(line)line.remove();
  persist();
 }
+
 function attachUnreadInteractions(root=document){
  root.querySelectorAll('.unread').forEach(line=>{
-  if(line.dataset.unreadAttached==='true')return;
-  line.dataset.unreadAttached='true';
+  if(line.dataset.attached==='true')return;
+  line.dataset.attached='true';
   line.addEventListener('click',event=>{
    event.preventDefault();
    event.stopPropagation();
@@ -512,83 +672,152 @@ function attachUnreadInteractions(root=document){
   });
  });
 }
+
 function renderHistory(){
- const destination=$('new-messages');destination.replaceChildren();
+ const destination=$('new-messages');
+ destination.replaceChildren();
  history.forEach((message,index)=>{
-  const wrap=document.createElement('div');wrap.className='new-message';wrap.dataset.historyIndex=String(index);
+  const wrap=document.createElement('div');
+  wrap.className='new-message';
+  wrap.dataset.historyIndex=String(index);
   if(index===history.length-1&&message.unread!==false){
-   const unread=document.createElement('div');unread.className='unread';
-   const label=document.createElement('span');label.textContent='Não lidas';unread.append(label);wrap.append(unread);
+   const unread=document.createElement('div');
+   unread.className='unread';
+   const label=document.createElement('span');
+   label.textContent='Não lidas';
+   unread.append(label);
+   wrap.append(unread);
   }
   if(message.receivedAt){
-   const time=document.createElement('div');time.className='message-entry-time';time.textContent=formatEntryTime(message.receivedAt);wrap.append(time);
+   const time=document.createElement('div');
+   time.className='message-entry-time';
+   time.textContent=formatEntryTime(message.receivedAt);
+   wrap.append(time);
   }
-  const bubble=document.createElement('div');bubble.className='bubble editable-message';bubble.dataset.messageId='history-'+index;bubble.innerHTML=cleanMessageHtml(message.html);
+  const bubble=document.createElement('div');
+  bubble.className='bubble editable-message';
+  bubble.dataset.messageId='history-'+index;
+  bubble.innerHTML=cleanMessageHtml(message.html);
   wrap.append(bubble);
-  const carrier=document.createElement('div');carrier.className='carrier';carrier.textContent='A enviar com Vodacom';wrap.append(carrier);
+  const carrier=document.createElement('div');
+  carrier.className='carrier';
+  carrier.textContent='Central de informações';
+  wrap.append(carrier);
   destination.append(wrap);
  });
  attachUnreadInteractions(destination);
+ attachMessageInteractions(destination);
 }
+
 function removeMessageActions(){
  document.querySelectorAll('.message-actions').forEach(x=>x.remove());
  document.querySelectorAll('.selected-message').forEach(x=>x.classList.remove('selected-message'));
  selectedMessageElement=null;
 }
-function showMessageActions(bubble){
- removeMessageActions();selectedMessageElement=bubble;bubble.classList.add('selected-message');
- const actions=document.createElement('div');actions.className='message-actions';
- const edit=document.createElement('button');edit.type='button';edit.textContent='Editar mensagem';edit.addEventListener('click',()=>openEditMessage(bubble));
- const del=document.createElement('button');del.type='button';del.className='delete-message';del.textContent='Eliminar mensagem';del.addEventListener('click',()=>deleteMessage(bubble));
- actions.append(edit,del);bubble.insertAdjacentElement('afterend',actions);
- const rect=actions.getBoundingClientRect(),chatRect=chat.getBoundingClientRect();
- if(rect.bottom>chatRect.bottom)chat.scrollTop+=rect.bottom-chatRect.bottom+20;
-}
+
 function getMessageRecord(bubble){
  const id=bubble.dataset.messageId||'';
  if(id.startsWith('history-'))return {type:'history',index:Number(id.slice(8))};
  if(id.startsWith('original-'))return {type:'original',id};
  return null;
 }
+
 function saveOriginalBubble(bubble){
- const records=readStore(STORE_ORIGINALS,[]),id=bubble.dataset.messageId,existing=records.find(x=>x.id===id);
- if(existing)existing.html=bubble.innerHTML;else records.push({id,html:bubble.innerHTML});
- localStorage.setItem(STORE_ORIGINALS,JSON.stringify(records));
+ const id=bubble.dataset.messageId;
+ const records=readStore(PREFIX+'originals',[]);
+ const existing=records.find(x=>x.id===id);
+ if(existing)existing.html=bubble.innerHTML;
+ else records.push({id,html:bubble.innerHTML});
+ localStorage.setItem(PREFIX+'originals',JSON.stringify(records));
 }
+
+function saveOriginalMessages(){
+ const originals=Array.from(
+  document.querySelectorAll('#chat > .bubble.editable-message')
+ ).map((b,i)=>({id:b.dataset.messageId||'original-'+i,html:b.innerHTML}));
+ try{localStorage.setItem(PREFIX+'originals',JSON.stringify(originals))}catch{}
+}
+
+function loadOriginalMessages(){
+ const saved=readStore(PREFIX+'originals',null);
+ if(!Array.isArray(saved)||!saved.length){
+  document.querySelectorAll('#chat > .bubble.editable-message')
+   .forEach(b=>b.innerHTML=cleanMessageHtml(b.innerHTML));
+  saveOriginalMessages();
+  return;
+ }
+ saved.forEach(item=>{
+  const bubble=Array.from(
+   document.querySelectorAll('#chat > .bubble.editable-message')
+  ).find(b=>b.dataset.messageId===item.id);
+  if(bubble)bubble.innerHTML=cleanMessageHtml(item.html);
+ });
+}
+
 function openEditMessage(bubble){
- const record=getMessageRecord(bubble);if(!record)return;
- editingMessage={bubble,record,originalHtml:bubble.innerHTML};
+ const record=getMessageRecord(bubble);
+ if(!record)return;
+ editingMessage={bubble,record};
  $('message-title').textContent='Editar mensagem';
- $('message-description').textContent='Altera o conteúdo da mensagem e guarda as alterações.';
+ $('message-description').textContent='Altera o conteúdo da mensagem.';
  $('save-message').textContent='Guardar alterações';
  editor.innerHTML=safeHtml(bubble.innerHTML);
- removeMessageActions();$('message-modal').hidden=false;editor.focus();
+ removeMessageActions();
+ $('message-modal').hidden=false;
+ editor.focus();
 }
+
 function deleteMessage(bubble){
- const record=getMessageRecord(bubble);if(!record)return;
+ const record=getMessageRecord(bubble);
+ if(!record)return;
  if(record.type==='history'){
   history.splice(record.index,1);
   renderHistory();
  }else{
   bubble.remove();
-  localStorage.setItem(STORE_ORIGINALS,JSON.stringify(readStore(STORE_ORIGINALS,[]).filter(x=>x.id!==record.id)));
+  const originals=readStore(PREFIX+'originals',[]);
+  localStorage.setItem(PREFIX+'originals',JSON.stringify(originals.filter(x=>x.id!==record.id)));
   saveOriginalMessages();
  }
  removeMessageActions();
- recalculateAllBalances();
+ persist();
  attachMessageInteractions();
 }
+
+function showMessageActions(bubble){
+ removeMessageActions();
+ selectedMessageElement=bubble;
+ bubble.classList.add('selected-message');
+ const actions=document.createElement('div');
+ actions.className='message-actions';
+ const edit=document.createElement('button');
+ edit.type='button';edit.textContent='Editar mensagem';
+ edit.addEventListener('click',()=>openEditMessage(bubble));
+ const del=document.createElement('button');
+ del.type='button';del.className='delete-message';del.textContent='Eliminar mensagem';
+ del.addEventListener('click',()=>deleteMessage(bubble));
+ actions.append(edit,del);
+ bubble.insertAdjacentElement('afterend',actions);
+}
+
 function startLongPress(bubble,event){
  if(event&&event.button!==undefined&&event.button!==0)return;
- clearTimeout(longPressTimer);longPressTriggered=false;
- longPressTimer=setTimeout(()=>{longPressTriggered=true;suppressNextClick=true;showMessageActions(bubble)},550);
+ clearTimeout(longPressTimer);
+ suppressNextClick=false;
+ longPressTimer=setTimeout(()=>{
+  suppressNextClick=true;
+  showMessageActions(bubble);
+ },550);
 }
 function cancelLongPress(){clearTimeout(longPressTimer)}
+
 function attachMessageInteractions(root=document){
  root.querySelectorAll('.bubble.editable-message').forEach(bubble=>{
   if(bubble.dataset.interactionsAttached==='true')return;
   bubble.dataset.interactionsAttached='true';
-  bubble.addEventListener('contextmenu',e=>{e.preventDefault();cancelLongPress();showMessageActions(bubble)});
+  bubble.addEventListener('contextmenu',e=>{
+   e.preventDefault();cancelLongPress();showMessageActions(bubble);
+  });
   bubble.addEventListener('pointerdown',e=>startLongPress(bubble,e));
   bubble.addEventListener('pointerup',cancelLongPress);
   bubble.addEventListener('pointerleave',cancelLongPress);
@@ -600,524 +829,681 @@ function attachMessageInteractions(root=document){
  });
 }
 
-/* FOTO DE PERFIL */
+/* FOTOGRAFIA DE PERFIL */
 function hasProfilePhoto(){return Boolean(localStorage.getItem(STORE_PHOTO))}
 function loadProfilePhoto(){
  const saved=localStorage.getItem(STORE_PHOTO);
- $('profile-image').src=saved||DEFAULT_PROFILE_PHOTO;
- $('profile-image').hidden=false;
- $('photo-modal-preview').src=saved||DEFAULT_PROFILE_PHOTO;
- $('photo-modal-preview').hidden=false;
- $('default-avatar').style.display='none';
+ $('profile-image').src=saved||DEFAULT_PHOTO;
+ $('photo-modal-preview').src=saved||DEFAULT_PHOTO;
 }
-function openPhotoPicker(){$('photo-input').value='';$('photo-input').click()}
-function openPhotoManager(){menu.hidden=true;loadProfilePhoto();$('photo-modal').hidden=false}
+function openPhotoPicker(){
+ $('photo-input').value='';
+ $('photo-input').click();
+}
+function openPhotoManager(){
+ menu.hidden=true;
+ loadProfilePhoto();
+ $('photo-modal').hidden=false;
+}
+
 $('photo-input').addEventListener('change',event=>{
- const file=event.target.files&&event.target.files[0];if(!file)return;
- if(!file.type.startsWith('image/')){notify('Seleciona uma imagem da galeria.');event.target.value='';return}
- if(file.size>8*1024*1024){notify('Escolhe uma imagem com menos de 8 MB.');event.target.value='';return}
+ const file=event.target.files&&event.target.files[0];
+ if(!file)return;
+ if(!file.type.startsWith('image/')){notify('Seleciona uma imagem válida.');return}
+ if(file.size>8*1024*1024){notify('Escolhe uma imagem com menos de 8 MB.');return}
  const reader=new FileReader();
  reader.onload=()=>{
   const image=new Image();
   image.onload=()=>{
    try{
-    const max=1200,ratio=Math.min(1,max/Math.max(image.naturalWidth,image.naturalHeight));
-    const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(image.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(image.naturalHeight*ratio));
+    const max=1200;
+    const ratio=Math.min(1,max/Math.max(image.naturalWidth,image.naturalHeight));
+    const canvas=document.createElement('canvas');
+    canvas.width=Math.max(1,Math.round(image.naturalWidth*ratio));
+    canvas.height=Math.max(1,Math.round(image.naturalHeight*ratio));
     canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);
-    localStorage.setItem(STORE_PHOTO,canvas.toDataURL('image/jpeg',.88));loadProfilePhoto();$('photo-modal').hidden=true;notify('Fotografia adicionada ao perfil.');
-   }catch{notify('Não foi possível guardar a imagem. Escolhe uma imagem menor.')}
+    localStorage.setItem(STORE_PHOTO,canvas.toDataURL('image/jpeg',.88));
+    loadProfilePhoto();
+    $('photo-modal').hidden=true;
+    notify('Fotografia adicionada ao perfil.');
+   }catch{notify('Não foi possível guardar a imagem.')}
   };
-  image.onerror=()=>notify('Não foi possível abrir esta imagem.');image.src=reader.result;
+  image.onerror=()=>notify('Não foi possível abrir esta imagem.');
+  image.src=reader.result;
  };
- reader.onerror=()=>notify('Não foi possível abrir esta imagem.');reader.readAsDataURL(file);event.target.value='';
+ reader.onerror=()=>notify('Erro ao carregar a imagem.');
+ reader.readAsDataURL(file);
 });
+
 $('change-photo').addEventListener('click',openPhotoManager);
 $('select-gallery').addEventListener('click',openPhotoPicker);
-function removeProfilePhoto(){localStorage.removeItem(STORE_PHOTO);loadProfilePhoto();$('photo-modal').hidden=true;notify('Fotografia padrão restaurada.')}
+
+function removeProfilePhoto(){
+ localStorage.removeItem(STORE_PHOTO);
+ loadProfilePhoto();
+ $('photo-modal').hidden=true;
+ notify('Fotografia padrão restaurada.');
+}
 $('remove-photo').addEventListener('click',()=>{
  menu.hidden=true;
- if(!hasProfilePhoto()){notify('A fotografia enviada já está definida como padrão.');return}
+ if(!hasProfilePhoto()){notify('Não existe fotografia personalizada.');return}
  removeProfilePhoto();
 });
-$('delete-photo-modal').addEventListener('click',()=>{
- if(!hasProfilePhoto()){notify('A fotografia enviada já está definida como padrão.');return}
- removeProfilePhoto();
-});
+$('delete-photo-modal').addEventListener('click',removeProfilePhoto);
 $('cancel-photo').addEventListener('click',()=>$('photo-modal').hidden=true);
+
+/* PERSONALIZAÇÃO DA NOTIFICAÇÃO */
+function applyNotificationPreview(){
+ $('notification-icon-preview').src=notificationSettings.icon||DEFAULT_PHOTO;
+ $('notification-preview-icon').src=notificationSettings.icon||DEFAULT_PHOTO;
+ $('notification-preview-name').textContent=notificationSettings.appName||'Minha Central';
+ $('notification-preview-title').textContent=notificationSettings.title||'Nova mensagem';
+}
+
+function openNotificationSettings(){
+ menu.hidden=true;
+ $('notification-app-name').value=notificationSettings.appName||'Minha Central';
+ $('notification-title').value=notificationSettings.title||'Nova mensagem';
+ $('notification-sound').value=notificationSettings.sound||'zinzin';
+ applyNotificationPreview();
+ $('notification-settings-modal').hidden=false;
+}
+
+$('customize-notification').addEventListener('click',openNotificationSettings);
+
+$('choose-notification-icon').addEventListener('click',()=>{
+ $('notification-icon-input').value='';
+ $('notification-icon-input').click();
+});
+
+$('notification-icon-input').addEventListener('change',event=>{
+ const file=event.target.files&&event.target.files[0];
+ if(!file)return;
+ if(!file.type.startsWith('image/')){notify('Escolhe uma imagem válida.');return}
+ if(file.size>8*1024*1024){notify('A imagem deve ter menos de 8 MB.');return}
+
+ const reader=new FileReader();
+ reader.onload=()=>{
+  const image=new Image();
+  image.onload=()=>{
+   try{
+    const canvas=document.createElement('canvas');
+    const size=256;
+    canvas.width=size;canvas.height=size;
+    const ctx=canvas.getContext('2d');
+    const side=Math.min(image.naturalWidth,image.naturalHeight);
+    const sx=(image.naturalWidth-side)/2;
+    const sy=(image.naturalHeight-side)/2;
+    ctx.drawImage(image,sx,sy,side,side,0,0,size,size);
+    notificationSettings.icon=canvas.toDataURL('image/png');
+    applyNotificationPreview();
+    notify('Ícone escolhido. Guarda a personalização para confirmar.');
+   }catch{notify('Não foi possível preparar o ícone.')}
+  };
+  image.onerror=()=>notify('Não foi possível abrir essa imagem.');
+  image.src=reader.result;
+ };
+ reader.readAsDataURL(file);
+});
+
+$('reset-notification-icon').addEventListener('click',()=>{
+ notificationSettings.icon=DEFAULT_PHOTO;
+ applyNotificationPreview();
+});
+
+$('notification-app-name').addEventListener('input',()=>{
+ $('notification-preview-name').textContent=$('notification-app-name').value||'Minha Central';
+});
+$('notification-title').addEventListener('input',()=>{
+ $('notification-preview-title').textContent=$('notification-title').value||'Nova mensagem';
+});
+
+$('cancel-notification-settings').addEventListener('click',()=>{
+ $('notification-settings-modal').hidden=true;
+});
+
+$('save-notification-settings').addEventListener('click',()=>{
+ notificationSettings={
+  appName:$('notification-app-name').value.trim()||'Minha Central',
+  title:$('notification-title').value.trim()||'Nova mensagem',
+  icon:notificationSettings.icon||DEFAULT_PHOTO,
+  sound:$('notification-sound').value||'zinzin'
+ };
+ try{
+  localStorage.setItem(STORE_NOTIFICATION_SETTINGS,JSON.stringify(notificationSettings));
+  $('notification-settings-modal').hidden=true;
+  applyNotificationPreview();
+  notify('Personalização das notificações guardada.');
+ }catch{
+  notify('Não foi possível guardar. Experimenta uma imagem menor.');
+ }
+});
+
+/* SOM ZIN-ZIN */
+function playNotificationSound(){
+ if(!notificationSettings||notificationSettings.sound==='none')return;
+ try{
+  const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+  if(!AudioContextClass)return;
+  const context=new AudioContextClass();
+  if(context.state==='suspended')context.resume();
+
+  const notes=notificationSettings.sound==='single'
+   ?[{frequency:880,start:0,duration:.16}]
+   :[
+     {frequency:880,start:0,duration:.13},
+     {frequency:1175,start:.19,duration:.18}
+    ];
+
+  notes.forEach(note=>{
+   const oscillator=context.createOscillator();
+   const gain=context.createGain();
+   oscillator.type='sine';
+   oscillator.frequency.value=note.frequency;
+   gain.gain.setValueAtTime(.0001,context.currentTime+note.start);
+   gain.gain.exponentialRampToValueAtTime(.16,context.currentTime+note.start+.025);
+   gain.gain.exponentialRampToValueAtTime(.0001,context.currentTime+note.start+note.duration);
+   oscillator.connect(gain);
+   gain.connect(context.destination);
+   oscillator.start(context.currentTime+note.start);
+   oscillator.stop(context.currentTime+note.start+note.duration+.02);
+  });
+  setTimeout(()=>context.close().catch(()=>{}),800);
+ }catch(error){console.warn('Som indisponível:',error)}
+}
+
+/* NOTIFICAÇÕES DO DISPOSITIVO */
+async function closePreviousNotification(){
+ try{
+  if(notificationRegistration){
+   const old=await notificationRegistration.getNotifications({tag:PUSH_TAG});
+   old.forEach(item=>item.close());
+  }
+ }catch(error){console.warn('Não foi possível fechar a notificação anterior:',error)}
+ if(currentNotification){
+  try{currentNotification.close()}catch{}
+  currentNotification=null;
+ }
+}
+
+async function showDeviceNotification(message){
+ if(!('Notification' in window)){
+  notify('Este navegador não suporta notificações do dispositivo.');
+  return;
+ }
+ if(Notification.permission!=='granted'){
+  notify('Ativa as notificações nas permissões do navegador.');
+  return;
+ }
+
+ const holder=document.createElement('div');
+ holder.innerHTML=safeHtml(message.html||'');
+ const messageText=(holder.innerText||holder.textContent||'').trim();
+ if(!messageText)return;
+
+ const options={
+  body:messageText,
+  icon:notificationSettings.icon||DEFAULT_PHOTO,
+  badge:notificationSettings.icon||DEFAULT_PHOTO,
+  tag:PUSH_TAG,
+  renotify:true,
+  timestamp:Date.now(),
+  data:{url:'./'}
+ };
+
+ try{
+  if(notificationRegistration){
+   await notificationRegistration.showNotification(
+    notificationSettings.title||'Nova mensagem',
+    options
+   );
+  }else if('Notification' in window){
+   currentNotification=new Notification(
+    notificationSettings.title||'Nova mensagem',
+    options
+   );
+  }
+ }catch(error){
+  console.warn('Falha ao apresentar notificação:',error);
+  notify('Não foi possível apresentar a notificação neste dispositivo.');
+ }
+}
+
+/* PERMISSÃO */
+function updatePermissionMenu(){
+ const button=$('enable-notifications');
+ if(!('Notification' in window)){
+  button.textContent='Notificações não suportadas neste navegador';
+  button.disabled=true;
+  return;
+ }
+ if(Notification.permission==='granted'){
+  button.textContent='✓ Notificações ativadas';
+  button.disabled=true;
+ }else{
+  button.textContent='♧ Ativar notificações';
+  button.disabled=false;
+ }
+}
+
+async function requestNotificationPermission(){
+ if(!('Notification' in window)){
+  notify('Este navegador não suporta notificações.');
+  return;
+ }
+ if(!window.isSecureContext){
+  notify('As notificações precisam de um site HTTPS.');
+  return;
+ }
+ try{
+  const permission=await Notification.requestPermission();
+  updatePermissionMenu();
+  $('permission-modal').hidden=true;
+  if(permission==='granted'){
+   notify('Notificações ativadas com sucesso.');
+  }else if(permission==='denied'){
+   notify('Permissão recusada. Altera nas definições do navegador.');
+  }else{
+   notify('A permissão ainda não foi concedida.');
+  }
+ }catch(error){
+  notify('Não foi possível pedir a permissão.');
+ }
+}
+
+$('allow-permission').addEventListener('click',requestNotificationPermission);
+$('later-permission').addEventListener('click',()=>{
+ $('permission-modal').hidden=true;
+});
+
+$('enable-notifications').addEventListener('click',()=>{
+ menu.hidden=true;
+ if(!('Notification' in window)){
+  notify('Este navegador não suporta notificações.');
+  return;
+ }
+ if(Notification.permission==='granted'){
+  notify('As notificações já estão ativadas.');
+  return;
+ }
+ if(Notification.permission==='denied'){
+  notify('Permissão bloqueada. Ativa nas definições do navegador.');
+  return;
+ }
+ $('permission-modal').hidden=false;
+});
 
 /* MENU */
 $('more').addEventListener('click',()=>menu.hidden=!menu.hidden);
+
 function openMessageEditor(){
- editingMessage=null;$('message-title').textContent='Adicionar mensagem';
- $('message-description').textContent='Guarda mensagens para as mostrar na conversa ao tocar na foto do perfil. A hora de entrada aparecerá acima da mensagem.';
- $('save-message').textContent='Guardar mensagem';editor.innerHTML='';
- $('message-modal').hidden=false;editor.focus();
+ editingMessage=null;
+ $('message-title').textContent='Adicionar mensagem';
+ $('message-description').textContent='Escreve uma mensagem para apresentar na conversa.';
+ $('save-message').textContent='Guardar mensagem';
+ editor.innerHTML='';
+ $('message-modal').hidden=false;
+ editor.focus();
 }
-$('add').addEventListener('click',()=>{menu.hidden=true;openMessageEditor()});
-$('appearance').addEventListener('click',()=>{
- menu.hidden=true;$('sender-name').value=settings.name||'M-Pesa';
- $('font-size').value=settings.font||20;$('bubble-width').value=settings.width||83;$('bubble-height').value=settings.height||0;
- updateSettingOutputs();$('settings-modal').hidden=false;
+
+$('add').addEventListener('click',()=>{
+ menu.hidden=true;
+ openMessageEditor();
 });
-$('edit-footer').addEventListener('click',()=>{menu.hidden=true;openFooterEditor()});
-$('edit-learn-more').addEventListener('click',()=>{menu.hidden=true;openLearnEditor()});
-$('edit-page').addEventListener('click',()=>{menu.hidden=true;openPageEditor()});
+
+$('appearance').addEventListener('click',()=>{
+ menu.hidden=true;
+ $('sender-name').value=settings.name||'Central de Notificações';
+ $('font-size').value=settings.font||20;
+ $('bubble-width').value=settings.width||83;
+ $('bubble-height').value=settings.height||0;
+ updateSettingOutputs();
+ $('settings-modal').hidden=false;
+});
+
+$('edit-footer').addEventListener('click',()=>{
+ menu.hidden=true;openFooterEditor();
+});
+$('edit-learn-more').addEventListener('click',()=>{
+ menu.hidden=true;openLearnEditor();
+});
+$('edit-page').addEventListener('click',()=>{
+ menu.hidden=true;openPageEditor();
+});
 $('exit').addEventListener('click',()=>menu.hidden=true);
 
-/* GUARDAR E EDITAR MENSAGENS */
-$('cancel-message').addEventListener('click',()=>{$('message-modal').hidden=true;editingMessage=null});
+/* MENSAGENS */
+$('cancel-message').addEventListener('click',()=>{
+ $('message-modal').hidden=true;
+ editingMessage=null;
+});
+
 $('underline').addEventListener('mousedown',e=>e.preventDefault());
-$('underline').addEventListener('click',()=>{editor.focus();document.execCommand('underline')});
-function makeMessageId(){return window.crypto&&crypto.randomUUID?crypto.randomUUID():'msg-'+Date.now()+'-'+Math.random().toString(36).slice(2)}
+$('underline').addEventListener('click',()=>{
+ editor.focus();
+ document.execCommand('underline');
+});
+
+function makeMessageId(){
+ return window.crypto&&crypto.randomUUID
+  ?crypto.randomUUID()
+  :'msg-'+Date.now()+'-'+Math.random().toString(36).slice(2);
+}
+
 $('save-message').addEventListener('click',()=>{
- let html=cleanMessageHtml(editor.innerHTML);
- if(!html.replace(/<br>/g,'').trim()){notify('Escreve uma mensagem antes de guardar.');return}
+ const html=cleanMessageHtml(editor.innerHTML);
+ if(!html.replace(/<br>/g,'').trim()){
+  notify('Escreve uma mensagem antes de guardar.');
+  return;
+ }
  if(editingMessage){
   const {bubble,record}=editingMessage;
   bubble.innerHTML=html;
   if(record.type==='history'){
    const msg=history[record.index];
-   if(msg){
-    msg.html=html;
-    msg.receiptProcessed=false;
-    msg.balanceAfter=null;
-   }
-  }else saveOriginalBubble(bubble);
-  editingMessage=null;$('message-modal').hidden=true;
-  recalculateAllBalances();
-  renderHistory();attachMessageInteractions();return;
+   if(msg)msg.html=html;
+  }else{
+   saveOriginalBubble(bubble);
+  }
+  editingMessage=null;
+  $('message-modal').hidden=true;
+  persist();
+  renderHistory();
+  attachMessageInteractions();
+  return;
  }
- const savedAt=new Date().toISOString();
- pending.push({id:makeMessageId(),html,savedAt});
- persist();updatePendingCount();$('message-modal').hidden=true;
+ pending.push({
+  id:makeMessageId(),
+  html,
+  savedAt:new Date().toISOString()
+ });
+ persist();
+ updatePendingCount();
+ $('message-modal').hidden=true;
+ notify('Mensagem guardada.');
 });
+
+/* APARÊNCIA */
 function updateSettingOutputs(){
  $('font-output').textContent=$('font-size').value+' px';
  $('width-output').textContent=$('bubble-width').value+'%';
  $('height-output').textContent=$('bubble-height').value+' px';
 }
-['font-size','bubble-width','bubble-height'].forEach(id=>$(id).addEventListener('input',updateSettingOutputs));
-$('cancel-settings').addEventListener('click',()=>$('settings-modal').hidden=true);
+['font-size','bubble-width','bubble-height'].forEach(id=>{
+ $(id).addEventListener('input',updateSettingOutputs);
+});
+$('cancel-settings').addEventListener('click',()=>{
+ $('settings-modal').hidden=true;
+});
 $('save-settings').addEventListener('click',()=>{
- settings={name:$('sender-name').value.trim()||'M-Pesa',font:Number($('font-size').value),width:Number($('bubble-width').value),height:Number($('bubble-height').value)};
- localStorage.setItem(STORE_SETTINGS,JSON.stringify(settings));applySettings();$('settings-modal').hidden=true;notify('Definições guardadas.');
+ settings={
+  name:$('sender-name').value.trim()||'Central de Notificações',
+  font:Number($('font-size').value),
+  width:Number($('bubble-width').value),
+  height:Number($('bubble-height').value)
+ };
+ localStorage.setItem(STORE_SETTINGS,JSON.stringify(settings));
+ applySettings();
+ $('settings-modal').hidden=true;
+ notify('Definições guardadas.');
 });
 
 /* RODAPÉ */
-const footerText=$('footer-text'),footerExtra=$('footer-extra');
-const savedFooter=localStorage.getItem(STORE_FOOTER),savedExtra=localStorage.getItem(STORE_EXTRA);
+const footerText=$('footer-text');
+const footerExtra=$('footer-extra');
+const savedFooter=localStorage.getItem(STORE_FOOTER);
+const savedExtra=localStorage.getItem(STORE_EXTRA);
 if(savedFooter!==null)footerText.innerHTML=safeHtml(savedFooter);
 if(savedExtra!==null)footerExtra.innerHTML=safeHtml(savedExtra);
-function saveFooterText(value){const clean=safeHtml(value);footerText.innerHTML=clean;localStorage.setItem(STORE_FOOTER,clean)}
-function saveExtraText(value){const clean=safeHtml(value);footerExtra.innerHTML=clean;localStorage.setItem(STORE_EXTRA,clean)}
-function openFooterEditor(){setEditorHtml('footer-editor',footerText.innerHTML);setEditorHtml('extra-editor',footerExtra.innerHTML);$('footer-modal').hidden=false}
-$('save-footer').addEventListener('click',()=>{saveFooterText($('footer-editor').innerHTML);saveExtraText($('extra-editor').innerHTML);$('footer-modal').hidden=true;notify('Textos inferiores guardados.')});
-$('clear-footer').addEventListener('click',()=>{$('footer-editor').innerHTML='';$('extra-editor').innerHTML='';$('footer-editor').focus()});
-$('cancel-footer').addEventListener('click',()=>$('footer-modal').hidden=true);
-footerText.addEventListener('input',()=>localStorage.setItem(STORE_FOOTER,safeHtml(footerText.innerHTML)));
-footerExtra.addEventListener('input',()=>localStorage.setItem(STORE_EXTRA,safeHtml(footerExtra.innerHTML)));
 
-/* SAIBA MAIS */
-const learnMore=$('learn-more'),learnWrap=$('learn-more-wrap');
-let learnText=localStorage.getItem(STORE_LEARN_TEXT);
-if(learnText===null)learnText='Saiba mais';
+function saveFooterText(value){
+ const clean=safeHtml(value);
+ footerText.innerHTML=clean;
+ localStorage.setItem(STORE_FOOTER,clean);
+}
+function saveExtraText(value){
+ const clean=safeHtml(value);
+ footerExtra.innerHTML=clean;
+ localStorage.setItem(STORE_EXTRA,clean);
+}
+function openFooterEditor(){
+ setEditorHtml('footer-editor',footerText.innerHTML);
+ setEditorHtml('extra-editor',footerExtra.innerHTML);
+ $('footer-modal').hidden=false;
+}
+$('save-footer').addEventListener('click',()=>{
+ saveFooterText($('footer-editor').innerHTML);
+ saveExtraText($('extra-editor').innerHTML);
+ $('footer-modal').hidden=true;
+ notify('Textos guardados.');
+});
+$('clear-footer').addEventListener('click',()=>{
+ $('footer-editor').innerHTML='';
+ $('extra-editor').innerHTML='';
+});
+$('cancel-footer').addEventListener('click',()=>{
+ $('footer-modal').hidden=true;
+});
+footerText.addEventListener('input',()=>{
+ localStorage.setItem(STORE_FOOTER,safeHtml(footerText.innerHTML));
+});
+footerExtra.addEventListener('input',()=>{
+ localStorage.setItem(STORE_EXTRA,safeHtml(footerExtra.innerHTML));
+});
+
+/* TEXTO DO TUTORIAL */
+const learnMore=$('learn-more');
+const learnWrap=$('learn-more-wrap');
+let learnText=localStorage.getItem(STORE_LEARN);
+if(learnText===null)learnText='Ver tutorial';
 let learnAlign=localStorage.getItem(STORE_LEARN_ALIGN)||'center';
 let pageAlign=localStorage.getItem(STORE_PAGE_ALIGN)||'left';
+
 function applyLearnMore(){
- learnMore.textContent=learnText;learnMore.hidden=!String(learnText).trim();learnWrap.style.justifyContent='center';
- localStorage.setItem(STORE_LEARN_TEXT,learnText);localStorage.setItem(STORE_LEARN_ALIGN,learnAlign);
+ learnMore.textContent=learnText;
+ learnMore.hidden=!String(learnText).trim();
+ learnWrap.style.justifyContent=learnAlign;
+ localStorage.setItem(STORE_LEARN,learnText);
+ localStorage.setItem(STORE_LEARN_ALIGN,learnAlign);
 }
 function updateLearnPreview(){
- const value=$('learn-editor').value;$('learn-preview').textContent=value||'(sem texto)';
- $('learn-preview').style.textAlign=learnAlign;$('learn-preview').style.color='var(--blue)';$('learn-preview').style.textDecoration=value?'underline':'none';
+ const value=$('learn-editor').value;
+ $('learn-preview').textContent=value||'(sem texto)';
+ $('learn-preview').style.textAlign=learnAlign;
+ $('learn-preview').style.color='var(--blue)';
+ $('learn-preview').style.textDecoration=value?'underline':'none';
 }
 function updateAlignmentButtons(){
- document.querySelectorAll('[data-align]').forEach(b=>{const active=b.dataset.align===learnAlign;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
+ document.querySelectorAll('[data-align]').forEach(b=>{
+  const active=b.dataset.align===learnAlign;
+  b.classList.toggle('active',active);
+  b.setAttribute('aria-pressed',String(active));
+ });
 }
-function openLearnEditor(){$('learn-editor').value=learnText;updateAlignmentButtons();updateLearnPreview();$('learn-modal').hidden=false;$('learn-editor').focus()}
+function openLearnEditor(){
+ $('learn-editor').value=learnText;
+ updateAlignmentButtons();
+ updateLearnPreview();
+ $('learn-modal').hidden=false;
+ $('learn-editor').focus();
+}
 $('learn-editor').addEventListener('input',updateLearnPreview);
-document.querySelectorAll('[data-align]').forEach(b=>b.addEventListener('click',()=>{learnAlign=b.dataset.align;updateAlignmentButtons();updateLearnPreview()}));
-$('clear-learn').addEventListener('click',()=>{$('learn-editor').value='';updateLearnPreview();$('learn-editor').focus()});
-$('cancel-learn').addEventListener('click',()=>{$('learn-modal').hidden=true;learnAlign=localStorage.getItem(STORE_LEARN_ALIGN)||'center'});
-$('save-learn').addEventListener('click',()=>{learnText=$('learn-editor').value.trim();applyLearnMore();$('learn-modal').hidden=true;notify(learnText?'Texto e posição guardados.':'Texto eliminado.')});
-learnMore.addEventListener('click',e=>{e.preventDefault()});
-learnMore.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')e.preventDefault()});
+document.querySelectorAll('[data-align]').forEach(b=>{
+ b.addEventListener('click',()=>{
+  learnAlign=b.dataset.align;
+  updateAlignmentButtons();
+  updateLearnPreview();
+ });
+});
+$('clear-learn').addEventListener('click',()=>{
+ $('learn-editor').value='';
+ updateLearnPreview();
+});
+$('cancel-learn').addEventListener('click',()=>{
+ $('learn-modal').hidden=true;
+ learnAlign=localStorage.getItem(STORE_LEARN_ALIGN)||'center';
+});
+$('save-learn').addEventListener('click',()=>{
+ learnText=$('learn-editor').value.trim();
+ applyLearnMore();
+ $('learn-modal').hidden=true;
+ notify('Texto atualizado.');
+});
+learnMore.addEventListener('click',e=>e.preventDefault());
 
 /* EDITAR PÁGINA */
 function applyPageAlignment(){
  const content=document.querySelector('.footer-content');
- content.style.textAlign=pageAlign;footerText.style.textAlign=pageAlign;footerExtra.style.textAlign=pageAlign;learnWrap.style.justifyContent='center';
- document.querySelectorAll('[data-page-align]').forEach(b=>{const active=b.dataset.pageAlign===pageAlign;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
+ content.style.textAlign=pageAlign;
+ footerText.style.textAlign=pageAlign;
+ footerExtra.style.textAlign=pageAlign;
+ learnWrap.style.justifyContent=pageAlign;
+ document.querySelectorAll('[data-page-align]').forEach(b=>{
+  const active=b.dataset.pageAlign===pageAlign;
+  b.classList.toggle('active',active);
+  b.setAttribute('aria-pressed',String(active));
+ });
  localStorage.setItem(STORE_PAGE_ALIGN,pageAlign);
 }
 function openPageEditor(){
- setEditorHtml('page-main-editor',footerText.innerHTML);$('page-learn-editor').value=learnText;setEditorHtml('page-extra-editor',footerExtra.innerHTML);
- document.querySelectorAll('[data-page-align]').forEach(b=>b.classList.toggle('active',b.dataset.pageAlign===pageAlign));
+ setEditorHtml('page-main-editor',footerText.innerHTML);
+ $('page-learn-editor').value=learnText;
+ setEditorHtml('page-extra-editor',footerExtra.innerHTML);
+ document.querySelectorAll('[data-page-align]').forEach(b=>{
+  b.classList.toggle('active',b.dataset.pageAlign===pageAlign);
+ });
  $('page-modal').hidden=false;
 }
-document.querySelectorAll('[data-page-align]').forEach(b=>b.addEventListener('click',()=>{
- pageAlign=b.dataset.pageAlign;
- document.querySelectorAll('[data-page-align]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b))});
-}));
-$('cancel-page').addEventListener('click',()=>{$('page-modal').hidden=true;pageAlign=localStorage.getItem(STORE_PAGE_ALIGN)||'left'});
+document.querySelectorAll('[data-page-align]').forEach(b=>{
+ b.addEventListener('click',()=>{
+  pageAlign=b.dataset.pageAlign;
+  document.querySelectorAll('[data-page-align]').forEach(x=>{
+   x.classList.toggle('active',x===b);
+   x.setAttribute('aria-pressed',String(x===b));
+  });
+ });
+});
+$('cancel-page').addEventListener('click',()=>{
+ $('page-modal').hidden=true;
+ pageAlign=localStorage.getItem(STORE_PAGE_ALIGN)||'left';
+});
 $('save-page').addEventListener('click',()=>{
- saveFooterText($('page-main-editor').innerHTML);learnText=$('page-learn-editor').value.trim();localStorage.setItem(STORE_LEARN_TEXT,learnText);
- saveExtraText($('page-extra-editor').innerHTML);applyLearnMore();applyPageAlignment();$('page-modal').hidden=true;notify('Todos os textos da página foram guardados.');
+ saveFooterText($('page-main-editor').innerHTML);
+ learnText=$('page-learn-editor').value.trim();
+ localStorage.setItem(STORE_LEARN,learnText);
+ saveExtraText($('page-extra-editor').innerHTML);
+ applyLearnMore();
+ applyPageAlignment();
+ $('page-modal').hidden=true;
+ notify('Página atualizada.');
 });
 
-/* PERFIL: MOSTRAR MENSAGEM SEM NOTIFICAÇÃO */
-$('avatar').addEventListener('click',()=>{
- if(!pending.length)return;
+/* MOSTRAR PRÓXIMA MENSAGEM + NOTIFICAÇÃO DO DISPOSITIVO */
+$('avatar').addEventListener('click',async()=>{
+ // O som é iniciado diretamente pelo toque do utilizador.
+ playNotificationSound();
+
+ // Fecha a notificação anterior antes de avançar.
+ await closePreviousNotification();
+
+ if(!pending.length){
+  notify('Não existem mensagens guardadas.');
+  return;
+ }
+
  const message=pending.shift();
- const now=new Date();
  message.id=message.id||makeMessageId();
- message.receivedAt=now.toISOString();
+ message.receivedAt=new Date().toISOString();
  message.unread=true;
- message.html=updateTransactionTime(message.html,now);
  history.push(message);
- recalculateAllBalances();
+
  updatePendingCount();
  initialUnreadVisible=false;
- const unread=$('initial-unread');if(unread)unread.remove();
+ const unread=$('initial-unread');
+ if(unread)unread.remove();
+
  persist();
  renderHistory();
- attachMessageInteractions();
- chat.scrollTo({top:chat.scrollHeight,behavior:'smooth'});
+
+ chat.scrollTo({
+  top:chat.scrollHeight,
+  behavior:'smooth'
+ });
+
+ // Usa exatamente a mensagem que estava guardada na fila.
+ await showDeviceNotification(message);
 });
 
 /* FECHAR MENU E JANELAS */
 document.addEventListener('click',event=>{
- if(!menu.hidden&&!event.target.closest('#menu')&&!event.target.closest('#more'))menu.hidden=true;
- if(selectedMessageElement&&!event.target.closest('.message-actions')&&!event.target.closest('.editable-message'))removeMessageActions();
-});
-document.addEventListener('keydown',event=>{
- if(event.key==='Escape'){
-  menu.hidden=true;$('message-modal').hidden=true;$('settings-modal').hidden=true;$('footer-modal').hidden=true;
-  $('learn-modal').hidden=true;$('photo-modal').hidden=true;$('page-modal').hidden=true;editingMessage=null;removeMessageActions();
+ if(!menu.hidden&&!event.target.closest('#menu')&&!event.target.closest('#more')){
+  menu.hidden=true;
+ }
+ if(selectedMessageElement&&
+ !event.target.closest('.message-actions')&&
+ !event.target.closest('.editable-message')){
+  removeMessageActions();
  }
 });
 
+document.addEventListener('keydown',event=>{
+ if(event.key==='Escape'){
+  menu.hidden=true;
+  [
+   'message-modal','settings-modal','footer-modal',
+   'learn-modal','photo-modal','page-modal',
+   'notification-settings-modal','permission-modal'
+  ].forEach(id=>$(id).hidden=true);
+  editingMessage=null;
+  removeMessageActions();
+ }
+});
+
+/* REGISTO DO SERVICE WORKER */
+async function registerNotificationWorker(){
+ if(!('serviceWorker' in navigator)||!window.isSecureContext)return;
+ try{
+  notificationRegistration=await navigator.serviceWorker.register('./sw.js');
+  await navigator.serviceWorker.ready;
+  notificationRegistration=await navigator.serviceWorker.getRegistration();
+ }catch(error){
+  console.warn('Service Worker não foi registado:',error);
+ }
+}
+
 /* INICIALIZAÇÃO */
-loadOriginalMessages();
-if(!initialUnreadVisible){const marker=$('initial-unread');if(marker)marker.remove()}
-applySettings();
-attachUnreadInteractions();
-renderHistory();
-updatePendingCount();
-loadProfilePhoto();
-applyLearnMore();
-applyPageAlignment();
-attachMessageInteractions();
-recalculateAllBalances();
-persist();
+async function initializeApp(){
+ loadOriginalMessages();
+
+ if(!initialUnreadVisible){
+  const marker=$('initial-unread');
+  if(marker)marker.remove();
+ }
+
+ applySettings();
+ attachUnreadInteractions();
+ renderHistory();
+ updatePendingCount();
+ loadProfilePhoto();
+ applyLearnMore();
+ applyPageAlignment();
+ attachMessageInteractions();
+ saveOriginalMessages();
+ applyNotificationPreview();
+
+ await registerNotificationWorker();
+
+ // Só apresenta o pedido personalizado se ainda não houve escolha.
+ if('Notification' in window&&
+    Notification.permission==='default'&&
+    window.isSecureContext){
+  $('permission-modal').hidden=false;
+ }
+
+ updatePermissionMenu();
+}
+
+initializeApp();
 </script>
-
-<!-- PUSH_BUILDER_INJECTED_V1 -->
-<style id="push-builder-style">
-#pb-permission-overlay{
-  position:fixed;inset:0;z-index:2147483000;
-  background:rgba(0,0,0,.72);
-  display:none;align-items:center;justify-content:center;
-  padding:20px;font-family:Arial,sans-serif;
-}
-#pb-permission-box{
-  width:100%;max-width:350px;background:#111c2b;color:#fff;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:18px;padding:23px;text-align:center;
-  box-shadow:0 15px 60px #0008;
-}
-#pb-permission-box h3{margin:0 0 10px;font-size:18px}
-#pb-permission-box p{font-size:13px;line-height:1.5;color:#b7c5d7}
-#pb-allow{
-  width:100%;padding:14px;border:0;border-radius:11px;
-  color:white;background:#287eff;font-weight:bold;cursor:pointer;
-}
-#pb-later{
-  width:100%;padding:12px;border:0;background:transparent;
-  color:#aab9cc;cursor:pointer;margin-top:5px;
-}
-</style>
-
-<div id="pb-permission-overlay" role="dialog" aria-modal="true">
-  <div id="pb-permission-box">
-    <h3>Ativar notificações</h3>
-    <p>Permite as notificações para receber mensagens e atualizações deste aplicativo.</p>
-    <button id="pb-allow">PERMITIR NOTIFICAÇÕES</button>
-    <button id="pb-later">Agora não</button>
-  </div>
-</div>
-
-<script>
-(function(){
-  'use strict';
-
-  const CONFIG = {"selector":"#avatar","title":"Central de Notificações","tag":"app-notification","iconSelector":"#profile-image","askPermission":true,"sound":true,"closePrevious":true,"messages":["ID Trans: CI260910.1101.o66015. Recebeu 315.00MT do Agente ID 95077, ORION CODE EMPREENDIMENTOS, as 26/10/26 às 4:17 PM . O teu novo saldo M-Pesa é de 3,676.00MT. Em caso de duvida, ligue para 100"]};
-  const QUEUE_KEY = 'push_builder_queue_v1';
-  const HISTORY_KEY = 'push_builder_history_v1';
-
-  let activeNotification = null;
-  let audioContext = null;
-  let queue = [];
-  let history = [];
-
-  function readArray(key){
-    try{
-      const value = JSON.parse(localStorage.getItem(key) || '[]');
-      return Array.isArray(value) ? value : [];
-    }catch(e){return [];}
-  }
-
-  function save(){
-    try{
-      localStorage.setItem(QUEUE_KEY,JSON.stringify(queue));
-      localStorage.setItem(HISTORY_KEY,JSON.stringify(history));
-    }catch(e){
-      console.warn('Não foi possível guardar as mensagens.',e);
-    }
-  }
-
-  function getElement(selector){
-    try{return document.querySelector(selector);}
-    catch(e){return null;}
-  }
-
-  function getIcon(){
-    const element = getElement(CONFIG.iconSelector);
-    if(!element) return undefined;
-
-    if(element.tagName === 'IMG'){
-      return element.currentSrc || element.src || undefined;
-    }
-
-    const background = getComputedStyle(element).backgroundImage;
-    const match = background.match(/url\(["']?(.*?)["']?\)/);
-    return match ? match[1] : undefined;
-  }
-
-  function sound(){
-    if(!CONFIG.sound) return;
-
-    try{
-      const AudioAPI = window.AudioContext || window.webkitAudioContext;
-      if(!AudioAPI) return;
-
-      audioContext = audioContext || new AudioAPI();
-      if(audioContext.state === 'suspended') audioContext.resume();
-
-      const now = audioContext.currentTime;
-
-      [0,0.22].forEach((delay,index)=>{
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-
-        oscillator.type = 'sine';
-        oscillator.frequency.value = index ? 1175 : 880;
-        gain.gain.setValueAtTime(0.001,now+delay);
-        gain.gain.exponentialRampToValueAtTime(.15,now+delay+.03);
-        gain.gain.exponentialRampToValueAtTime(.001,now+delay+.19);
-
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-        oscillator.start(now+delay);
-        oscillator.stop(now+delay+.2);
-      });
-    }catch(e){
-      console.warn('Som não disponível.',e);
-    }
-  }
-
-  function closePrevious(){
-    if(!CONFIG.closePrevious) return;
-
-    if(activeNotification){
-      try{activeNotification.close();}catch(e){}
-      activeNotification = null;
-    }
-  }
-
-  function showNotification(message){
-    if(!('Notification' in window)){
-      console.warn('Este navegador não suporta notificações.');
-      return;
-    }
-
-    if(Notification.permission !== 'granted') return;
-
-    sound();
-
-    const options = {
-      body:message,
-      tag:CONFIG.tag,
-      renotify:true,
-      requireInteraction:true
-    };
-
-    const icon = getIcon();
-    if(icon) options.icon = icon;
-
-    try{
-      activeNotification = new Notification(CONFIG.title,options);
-      activeNotification.onclick = function(){
-        window.focus();
-      };
-    }catch(e){
-      console.warn('O navegador não permitiu criar a notificação.',e);
-    }
-  }
-
-  function nextMessage(){
-    closePrevious();
-
-    if(!queue.length){
-      console.info('Não existem mais mensagens guardadas.');
-      return;
-    }
-
-    const message = queue.shift();
-    history.push({
-      text:message,
-      receivedAt:new Date().toISOString()
-    });
-
-    save();
-    showNotification(message);
-  }
-
-  function addMessage(message){
-    const text = String(message || '').trim();
-    if(!text) return false;
-
-    queue.push(text);
-    save();
-    return true;
-  }
-
-  function showPermissionDialog(){
-    if(!CONFIG.askPermission) return;
-    if(!('Notification' in window)) return;
-    if(Notification.permission !== 'default') return;
-
-    const overlay = document.getElementById('pb-permission-overlay');
-    if(!overlay) return;
-
-    overlay.style.display = 'flex';
-
-    document.getElementById('pb-allow').onclick = async function(){
-      try{
-        const permission = await Notification.requestPermission();
-        overlay.style.display = 'none';
-
-        if(permission === 'granted'){
-          console.info('Permissão de notificações concedida.');
-        }else{
-          console.info('Permissão de notificações não concedida.');
-        }
-      }catch(e){
-        overlay.style.display = 'none';
-        console.warn('Não foi possível pedir permissão.',e);
-      }
-    };
-
-    document.getElementById('pb-later').onclick = function(){
-      overlay.style.display = 'none';
-    };
-  }
-
-  function connectProfileButton(){
-    const button = getElement(CONFIG.selector);
-
-    if(!button){
-      console.warn(
-        'Push Builder: botão não encontrado. Verifica o seletor configurado:',
-        CONFIG.selector
-      );
-      return;
-    }
-
-    if(button.dataset.pbNotificationsConnected === 'yes') return;
-
-    button.dataset.pbNotificationsConnected = 'yes';
-    button.addEventListener('click',function(){
-      nextMessage();
-    });
-  }
-
-  /* Mensagens iniciais configuradas no gerador. */
-  const initialMessages = ["ID Trans: CI260910.1101.o66015. Recebeu 315.00MT do Agente ID 95077, ORION CODE EMPREENDIMENTOS, as 26/10/26 às 4:17 PM . O teu novo saldo M-Pesa é de 3,676.00MT. Em caso de duvida, ligue para 100"];
-
-  queue = readArray(QUEUE_KEY);
-  history = readArray(HISTORY_KEY);
-
-  /*
-    As mensagens iniciais são carregadas apenas uma vez.
-    As mensagens que já foram consumidas não voltam a aparecer
-    quando o utilizador atualiza a página.
-  */
-  const INIT_KEY = 'push_builder_initialized_v1';
-
-  if(!localStorage.getItem(INIT_KEY)){
-    queue = initialMessages.slice();
-    localStorage.setItem(INIT_KEY,'yes');
-    save();
-  }
-
-  /*
-    API para outros scripts adicionarem mensagens:
-    window.PushNotifications.add('Nova mensagem');
-  */
-  window.PushNotifications = {
-    add:addMessage,
-    addMany:function(list){
-      if(!Array.isArray(list)) return;
-      list.forEach(addMessage);
-    },
-    pending:function(){return queue.slice();},
-    history:function(){return history.slice();},
-    permission:function(){
-      return ('Notification' in window)
-        ? Notification.permission
-        : 'unsupported';
-    },
-    requestPermission:function(){
-      if(!('Notification' in window)){
-        return Promise.resolve('unsupported');
-      }
-      return Notification.requestPermission();
-    }
-  };
-
-  function initialize(){
-    connectProfileButton();
-    showPermissionDialog();
-  }
-
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded',initialize);
-  }else{
-    initialize();
-  }
-
-  /*
-    Se o botão for criado dinamicamente depois do carregamento,
-    o observador tenta encontrá-lo novamente.
-  */
-  if(window.MutationObserver){
-    const observer = new MutationObserver(function(){
-      const button = getElement(CONFIG.selector);
-      if(button && button.dataset.pbNotificationsConnected !== 'yes'){
-        connectProfileButton();
-      }
-    });
-
-    observer.observe(document.documentElement,{
-      childList:true,
-      subtree:true
-    });
-  }
-
-})();
-</script>
-<!-- FIM PUSH_BUILDER_INJECTED_V1 -->
-
 </body>
-                                                         </html>
+</html>
